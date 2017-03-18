@@ -1,0 +1,12 @@
+diff --git a/src/libscotch/parser_ll.l b/src/libscotch/parser_ll.l
+index 82450f1..6cfd6fd 100644
+--- a/src/libscotch/parser_ll.l
++++ b/src/libscotch/parser_ll.l
+@@ -96,6 +96,7 @@
+ #define YY_NO_UNPUT                               /* No prototype for yyunput as not defined     */
+ #define YY_SKIP_YYWRAP                            /* No prototype for yywrap as defined as macro */
+ #define yywrap()                    (1)           /* Always return end-of-file on end-of-string  */
++#define scotchyywrap()              (1)           /* Always return end-of-file on end-of-string  */
+
+ /*
+ **  The static variables.
