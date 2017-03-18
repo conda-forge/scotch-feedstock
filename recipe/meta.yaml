@@ -10,6 +10,8 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   md5: {{ md5 }}
   url: https://gforge.inria.fr/frs/download.php/latestfile/298/{{ name }}_{{ version }}.tar.gz
+  patches:
+    - yywrap.patch
 
 build:
   skip: true  # [win]
