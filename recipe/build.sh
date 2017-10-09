@@ -2,10 +2,13 @@
 
 cp $RECIPE_DIR/Makefile.inc src/Makefile.inc
 
+if [ "$PKG_NAME" == "scotch" ]
+then
+
 # build
 cd src/
-make esmumps 2>&1 | tee -a make.log
-make check
+make esmumps 2>&1 | tee make.log
+make check 2>&1 | tee check.log
 cd ..
 # install
 mkdir -p $PREFIX/lib/
@@ -14,6 +17,9 @@ mkdir -p $PREFIX/bin/
 cp bin/* $PREFIX/bin/
 mkdir -p $PREFIX/include/
 cp include/* $PREFIX/include/
+
+fi # scotch
+
 
 if [ "$PKG_NAME" == "ptscotch" ]
 then
@@ -34,10 +40,10 @@ fi
 
 # build
 cd src/
-make ptesmumps 2>&1 | tee -a make.log
-make ptcheck EXECP="$MPIEXEC -n 4"
+make ptesmumps 2>&1 | tee make.log
+make ptcheck EXECP="$MPIEXEC -n 4" 2>&1 | tee check.log
 cd ..
-# install.
+# install
 mkdir -p $PREFIX/lib/
 cp lib/libpt* $PREFIX/lib/
 mkdir -p $PREFIX/bin/
@@ -46,4 +52,4 @@ mkdir -p $PREFIX/include/
 cp include/ptscotch*.h $PREFIX/include/
 cp include/parmetis.h  $PREFIX/include/
 
-fi
+fi # ptscotch

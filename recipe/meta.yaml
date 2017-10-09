@@ -1,5 +1,6 @@
-{% set name = "ptscotch" %}
+{% set build = 3 %}
 {% set version = "6.0.4" %}
+{% set name = "ptscotch" %}
 {% set md5 = "d58b825eb95e1db77efe8c6ff42d329f" %}
 
 package:
@@ -16,21 +17,27 @@ source:
 
 build:
   skip: true  # [win]
-  number: 3
+  number: {{ build }}
 
 requirements:
  build:
   - toolchain
-  - zlib 1.2.*
   - bison
   - flex 2.6.0
+  - zlib 1.2.*
+  {% if name == 'ptscotch' %}
   - mpich 3.2.*
+  {% endif %}
  run:
   - zlib 1.2.*
+  {% if name == 'ptscotch' %}
+  - scotch
   - mpich 3.2.*
+  {% endif %}
 
 test:
   commands:
+    {% if name == 'scotch' %}
     - test -f "${PREFIX}/lib/libscotch.a"
     - test -f "${PREFIX}/lib/libscotcherr.a"
     - test -f "${PREFIX}/lib/libscotcherrexit.a"
@@ -46,6 +53,7 @@ test:
     - gotst -V
     - gpart -V
     - gscat -V
+    {% else %}
     - test -f "${PREFIX}/lib/libptscotch.a"
     - test -f "${PREFIX}/lib/libptscotcherr.a"
     - test -f "${PREFIX}/lib/libptscotcherrexit.a"
@@ -61,18 +69,23 @@ test:
     - dgpart -V
     - dgscat -V
     - dgtst -V
+    {% endif %}
 
 about:
   home: https://www.labri.fr/perso/pelegrin/scotch/
   license: CeCILL-C
-  license_file: LICENSE_en.txt
+  license_file: doc/CeCILL-C_V1-en.txt
+  {% if name == 'scotch' %}
+  summary: 'SCOTCH: Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
+  {% else %}
   summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
+  {% endif %}
   description: |
     Software package and libraries for sequential and parallel 
     graph partitioning, static mapping and clustering, sequential 
     mesh and hypergraph partitioning, and sequential and parallel 
     sparse matrix block ordering.
-  doc_url: http://gforge.inria.fr/docman/?group_id=248
+  doc_url: http://gforge.inria.fr/docman/?group_id=248&dirid=326
 
 extra:
   recipe-maintainers:

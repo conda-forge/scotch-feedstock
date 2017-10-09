@@ -42,7 +42,9 @@ LDFLAGS += -L${PREFIX}/lib -lz -lm
 ifeq (${pthread},1)
 CFLAGS  += -pthread
 CFLAGS  += -DCOMMON_PTHREAD
-#CFLAGS += -DSCOTCH_PTHREAD
+ifeq (${PKG_NAME},scotch)
+CFLAGS += -DSCOTCH_PTHREAD
+endif
 ifeq ($(UNAME_S),Darwin)
 CFLAGS  += -DCOMMON_PTHREAD_BARRIER
 endif
