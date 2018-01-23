@@ -1,7 +1,9 @@
-{% set build = 4 %}
+{% set build = 5 %}
 {% set version = "6.0.4" %}
 {% set name = "ptscotch" %}
 {% set md5 = "d58b825eb95e1db77efe8c6ff42d329f" %}
+{% set mpi = os.environ.get('MPI_VARIANT', 'mpich') %}
+{% set mpi_version = {'mpich': '3.2.*', 'openmpi': '3.0.*'}[mpi] %}
 
 package:
   name: {{ name }}
@@ -18,6 +20,9 @@ source:
 build:
   skip: true  # [win]
   number: {{ build }}
+  {% if name == 'ptscotch' %}
+  string: {{ mpi }}_{{ build }}
+  {% endif %}
 
 requirements:
  build:
@@ -26,13 +31,13 @@ requirements:
   - flex 2.6.0
   - zlib 1.2.*
   {% if name == 'ptscotch' %}
-  - mpich 3.2.*
+  - {{ mpi }} {{ mpi_version }}
   {% endif %}
  run:
   - zlib 1.2.*
   {% if name == 'ptscotch' %}
+  - {{ mpi }} {{ mpi_version }}
   - scotch {{version}}
-  - mpich 3.2.*
   {% endif %}
 
 test:
