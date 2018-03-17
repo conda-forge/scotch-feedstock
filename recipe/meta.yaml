@@ -1,7 +1,7 @@
 {% set build = 4 %}
-{% set version = "6.0.4" %}
+{% set version = "6.0.5" %}
 {% set name = "scotch" %}
-{% set md5 = "d58b825eb95e1db77efe8c6ff42d329f" %}
+{% set md5 = "b9d5240d799198cc323c39398d9ec383" %}
 
 package:
   name: {{ name }}
@@ -17,7 +17,7 @@ source:
 
 build:
   skip: true  # [win]
-  number: {{ build }}
+  number: 0
 
 requirements:
  build:
