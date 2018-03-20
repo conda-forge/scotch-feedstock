@@ -1,0 +1,29 @@
+From 841877aa173c1bf79e8b667b862d1bce12fe1d6b Mon Sep 17 00:00:00 2001
+From: Satish Balay <balay@mcs.anl.gov>
+Date: Wed, 17 Aug 2016 10:06:14 -0500
+Subject: [PATCH] compile fix - when -DCOMMON_PTHREAD is not used
+
+https://bitbucket.org/petsc/petsc/issues/141/
+http://gforge.inria.fr/tracker/index.php?func=detail&aid=19407&group_id=248&atid=1079
+---
+ src/libscotch/common.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/libscotch/common.h b/src/libscotch/common.h
+index 7b50a59..ac8b79a 100644
+--- a/src/libscotch/common.h
++++ b/src/libscotch/common.h
+@@ -306,7 +306,9 @@ typedef struct ThreadGroupHeader_ {
+   ThreadLaunchStartFunc     stafptr;              /*+ Pointer to start routine +*/
+   ThreadLaunchJoinFunc      joifptr;              /*+ Pointer to join routine  +*/
+   ThreadBarrier             barrdat;              /*+ Barrier data structure   +*/
+-#endif /* ((defined COMMON_PTHREAD) || (defined SCOTCH_PTHREAD)) */
++#else /* ((defined COMMON_PTHREAD) || (defined SCOTCH_PTHREAD)) */
++  int                       thrdnbr;              /*+ Number of threads        +*/
++#endif
+ } ThreadGroupHeader;
+ 
+ /** The thread header block. **/
+-- 
+2.7.4.1.g5468f9e
+
