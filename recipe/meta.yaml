@@ -10,69 +10,84 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   md5: {{ md5 }}
-  url: https://gforge.inria.fr/frs/download.php/latestfile/298/scotch_{{ version }}.tar.gz
+  url: https://gforge.inria.fr/frs/download.php/latestfile/298/{{ name }}_{{ version }}.tar.gz
   patches:
+    - windows_makefile.patch  # [win]
     - patch1.diff
     - patch2.diff
 
-build:
-  skip: true  # [win]
-  number: {{ build }}
 
 requirements:
  build:
-  - toolchain
-  - bison
-  - flex 2.6.0
+  - toolchain # [not win]
+  - m2w64-toolchain # [win]
   - zlib 1.2.*
   {% if name == 'ptscotch' %}
   - mpich 3.2.*
   {% endif %}
+  - bison  # [not win]
+  - flex 2.6.0  # [not win]
+  - vc 9  # [win and py27]
+  - vc 10  # [win and py34]
+  - vc 14  # [win and py35]
+  - patch
  run:
   - zlib 1.2.*
   {% if name == 'ptscotch' %}
   - scotch {{version}}
   - mpich 3.2.*
   {% endif %}
+  - vc 9  # [win and py27]
+  - vc 10  # [win and py34]
+  - vc 14  # [win and py35]
 
-test:
-  requires:
-    - toolchain
+build:
+  number: {{ build }}
   commands:
     {% if name == 'scotch' %}
-    - test -f "${PREFIX}/lib/libscotch.a"
-    - test -f "${PREFIX}/lib/libscotcherr.a"
-    - test -f "${PREFIX}/lib/libscotcherrexit.a"
-    - test -f "${PREFIX}/lib/libscotchmetis.a"
-    - test -f "${PREFIX}/lib/libesmumps.a"
-    - test -f "${PREFIX}/include/scotch.h"
-    - test -f "${PREFIX}/include/scotchf.h"
-    - test -f "${PREFIX}/include/scotch/metis.h"
-    - test ! -f "${PREFIX}/include/metis.h"
-    - test -f "${PREFIX}/include/esmumps.h"
-    - mord -V
-    - gmap -V
-    - gord -V
-    - gotst -V
-    - gpart -V
-    - gscat -V
+    - test -f "${PREFIX}/lib/libscotch.a"  # [not win]
+    - test -f "${PREFIX}/lib/libscotcherr.a"  # [not win]
+    - test -f "${PREFIX}/lib/libscotcherrexit.a"  # [not win]
+    - test -f "${PREFIX}/lib/libscotchmetis.a"  # [not win]
+    - test -f "${PREFIX}/lib/libesmumps.a"  # [not win]
+    - test -f "${PREFIX}/include/esmumps.h"  # [not win]
+    - test -f "${PREFIX}/include/metis.h"  # [not win]
+    - test ! -f "${PREFIX}/include/scotch.h"  # [not win]
+    - test -f "${PREFIX}/include/scotchf.h"  # [not win]
+    - mord -V  # [not win]
+    - gotst -V  # [not win]
+    - gord -V  # [not win]
+    - gpart -V  # [not win]
+    - gmap -V  # [not win]
+    - mord.exe -V  # [win]
+    - gotst.exe -V  # [win]
+    - gord.exe -V  # [win]
+    - gpart.exe -V  # [win]
+    - gmap.exe -V  # [win]
     {% else %}
-    - test -f "${PREFIX}/lib/libptscotch.a"
-    - test -f "${PREFIX}/lib/libptscotcherr.a"
-    - test -f "${PREFIX}/lib/libptscotcherrexit.a"
-    - test -f "${PREFIX}/lib/libptscotchparmetis.a"
-    - test -f "${PREFIX}/lib/libptesmumps.a"
-    - test -f "${PREFIX}/include/ptscotch.h"
-    - test -f "${PREFIX}/include/ptscotchf.h"
-    - test -f "${PREFIX}/include/scotch/parmetis.h"
-    - test ! -f "${PREFIX}/include/parmetis.h"
-    - test -f "${PREFIX}/include/esmumps.h"
-    - dggath -V
-    - dgmap -V
-    - dgord -V
-    - dgpart -V
-    - dgscat -V
-    - dgtst -V
+    - test -f "${PREFIX}/lib/libptscotch.a"  # [not win]
+    - test -f "${PREFIX}/lib/libptscotcherr.a"  # [not win]
+    - test -f "${PREFIX}/lib/libptscotcherrexit.a"  # [not win]
+    - test -f "${PREFIX}/lib/libptscotchparmetis.a"  # [not win]
+    - test -f "${PREFIX}/lib/libptesmumps.a"  # [not win]
+    - test -f "${PREFIX}/include/ptscotch.h"  # [not win]
+    - test -f "${PREFIX}/include/ptscotchf.h"  # [not win]
+    - test -f "${PREFIX}/include/scotch/parmetis.h"  # [not win]
+    - test ! -f "${PREFIX}/include/parmetis.h"  # [not win]
+    - test -f "${PREFIX}/include/esmumps.h"  # [not win]
+    - dggath -V  # [not win]
+    - dgmap -V  # [not win]
+    - dgord -V  # [not win]
+    - dgpart -V  # [not win]
+    - dgscat -V  # [not win]
+    - dgtst -V  # [not win]
+    - dggath.exe -V  # [win]
+    - dgmap.exe -V  # [win]
+    - dgord.exe -V  # [win]
+    - dgpart.exe -V  # [win]
+    - dgscat.exe -V  # [win]
+    - dgtst.exe -V  # [win]
+
     {% endif %}
 
 about:

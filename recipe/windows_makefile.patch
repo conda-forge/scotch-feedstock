@@ -1,0 +1,19 @@
+--- src/Make.inc/Makefile.inc.i686_pc_mingw32
+***************
+*** 8,15 ****
+  # Since all files are linked with the MPI libraries, this file is
+  # for compiling PT-Scotch only. To compile Scotch, remove the
+  # -DSCOTCH_PTSCOTCH flag, as well as all references to MPI in the
+! # CFLAGS and CLIBFLAGS	=
+! LDFLAGS variables.
+  
+  EXE			=
+  LIB			= .a
+--- 8,14 ----
+  # Since all files are linked with the MPI libraries, this file is
+  # for compiling PT-Scotch only. To compile Scotch, remove the
+  # -DSCOTCH_PTSCOTCH flag, as well as all references to MPI in the
+! # CFLAGS and CLIBFLAGS	= LDFLAGS variables.
+  
+  EXE			=
+  LIB			= .a
