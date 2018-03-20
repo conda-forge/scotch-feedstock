@@ -10,11 +10,11 @@
 # -DSCOTCH_PTSCOTCH flag, as well as all references to MPI in the
 # CFLAGS and CLIBFLAGS	= LDFLAGS variables.
 
-EXE			=
+EXE			= .exe
 LIB			= .a
 OBJ			= .o
 
-MAKE			= make
+MAKE			= mingw32-make
 AR			= ar
 ARFLAGS			= -ruv
 CAT			= cat

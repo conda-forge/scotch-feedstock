@@ -20,13 +20,16 @@ build:
 
 requirements:
  build:
-  - toolchain
+  - toolchain # [not win]
+  - m2w64-toolchain # [win]
+  - {{ compiler('c') }}
   - zlib 1.2.*
   - bison  # [not win]
   - flex 2.6.0  # [not win]
   - vc 9  # [win and py27]
   - vc 10  # [win and py34]
   - vc 14  # [win and py35]
+  - patch
  run:
   - zlib 1.2.*
   - vc 9  # [win and py27]
