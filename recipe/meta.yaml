@@ -21,7 +21,6 @@ requirements:
  build:
   - toolchain # [not win]
   - m2w64-toolchain # [win]
-  - {{ compiler('c') }}
   - zlib 1.2.*
   {% if name == 'ptscotch' %}
   - mpich 3.2.*
