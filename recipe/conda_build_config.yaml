@@ -1,5 +1,3 @@
-flex:
-  - 2.6.0
 mpi:
   - mpich
   - openmpi
