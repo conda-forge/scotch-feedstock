@@ -12,8 +12,6 @@ cxx_compiler_version:
 - '7'
 docker_image:
 - condaforge/linux-anvil-comp7
-flex:
-- 2.6.0
 mpi:
 - mpich
 pin_run_as_build:
