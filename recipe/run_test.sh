@@ -8,8 +8,17 @@ SCOTCHINCLUDEDIR=$PREFIX/include
 LIB=$SHLIB_EXT
 "
 
+# make dirs and copy files
+# conda build should do this but it breaks :/
+mkdir -p src/check
+mkdir -p src/libscotch
 
 cp ${RECIPE_DIR}/Makefile.inc src/Makefile.inc
+cp -r ${SRC_DIR}/src/check src/.
+cp ${SRC_DIR}/src/libscotch/common.h src/libscotch/common.h
+cp ${SRC_DIR}/src/libscotch/module.h src/libscotch/module.h
+cp ${SRC_DIR}/src/libscotch/fibo.h src/libscotch/fibo.h
+
 cd src/check
 make clean
 
