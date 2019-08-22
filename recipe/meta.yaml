@@ -1,5 +1,5 @@
 {% set name = "scotch" %}
-{% set build = 1002 %}
+{% set build = 1003 %}
 {% set version = "6.0.6" %}
 {% set sha256 = "686f0cad88d033fe71c8b781735ff742b73a1d82a65b8b1586526d69729ac4cf" %}
 
