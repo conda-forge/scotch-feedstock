@@ -9,7 +9,7 @@ LIB=$SHLIB_EXT
 "
 
 
-cp ${RECIPE_DIR}/Makefile.inc src/
+cp ${RECIPE_DIR}/Makefile.inc src/Makefile.inc
 cd src/check
 make clean
 
