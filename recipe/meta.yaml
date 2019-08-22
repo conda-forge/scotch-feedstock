@@ -30,7 +30,7 @@ requirements:
 
  host:
    - bison
-   - flex
+   - flex =2.6
    - zlib
  run:
    - zlib
@@ -76,13 +76,13 @@ outputs:
       build:
         - {{ compiler('c') }}
       host:
-        - flex
+        - flex =2.6
         - {{ mpi }}
         - scotch
         - zlib
       run:
         - {{ mpi }}
-        - scotch
+        - scotch =2.6
         - zlib
     test:
       requires:
