@@ -1,7 +1,7 @@
 {% set name = "scotch" %}
-{% set build = 1 %}
-{% set version = "6.0.9" %}
-{% set sha256 = "622b4143cf01c480bb15708b3651b29c25e4aeb00c8c6447ff196aca2eca5c93" %}
+{% set build = 0 %}
+{% set version = "6.1.1" %}
+{% set sha256 = "39052f59ff474a4a69cefc25cf3caf8429400889deba010ee6403ca188f8b311" %}
 
 {% set major = version.split('.')[0] %}
 package:
