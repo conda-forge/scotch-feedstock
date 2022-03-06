@@ -58,8 +58,10 @@ elif [[ "$PKG_NAME" == "ptscotch" ]]; then
   cat ./Makefile
   echo "===========> cat ./libscotch/Makefile before make ptesmumps"
   cat ./libscotch/Makefile
+  echo "===========> running which make" 
+  which make
   echo "===========> running make ptesmumps" 
-  make ptesmumps
+  make -j1 ptesmumps
   echo "===========> make ptesmumps completed" 
   cd ..
 
