@@ -52,7 +52,11 @@ elif [[ "$PKG_NAME" == "ptscotch" ]]; then
 
   # build
   cd src/
+  echo "===========> env before make ptesmumps"
+  env
+  echo "===========> running make ptesmumps" 
   make ptesmumps
+  echo "===========> make ptesmumps completed" 
   cd ..
 
   # install
