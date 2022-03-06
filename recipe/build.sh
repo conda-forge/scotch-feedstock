@@ -60,8 +60,10 @@ elif [[ "$PKG_NAME" == "ptscotch" ]]; then
   cat ./libscotch/Makefile
   echo "===========> running which make" 
   which make
-  echo "===========> running make ptesmumps" 
-  make -j1 ptesmumps
+  echo "===========> running make --just-print ptesmumps" 
+  make --just-print ptesmumps
+  echo "===========> running make -d -j1 ptesmumps" 
+  make -d -j1 ptesmumps
   echo "===========> make ptesmumps completed" 
   cd ..
 
