@@ -54,6 +54,10 @@ elif [[ "$PKG_NAME" == "ptscotch" ]]; then
   cd src/
   echo "===========> env before make ptesmumps"
   env
+  echo "===========> cat ./Makefile before make ptesmumps"
+  cat ./Makefile
+  echo "===========> cat ./libscotch/Makefile before make ptesmumps"
+  cat ./libscotch/Makefile
   echo "===========> running make ptesmumps" 
   make ptesmumps
   echo "===========> make ptesmumps completed" 
