@@ -52,8 +52,11 @@ elif [[ "$PKG_NAME" == "ptscotch" ]]; then
 
   # build
   cd src/
-  # Get an updated config.sub and config.guess
-  cp $BUILD_PREFIX/share/gnuconfig/config.* .
+  echo "=============> which mpicc before make ptesmumps" 
+  which mpicc
+  echo "=============> cat which mpicc before make ptesmumps" 
+  cat `which mpicc` 
+  echo "=============> make ptesmumps" 
   make ptesmumps
   cd ..
 
