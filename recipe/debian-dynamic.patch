@@ -154,25 +154,27 @@ Index: scotch/src/libscotch/Makefile
 +					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotch-$(VERSION)$(SHLIB_EXT) $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS) -L. -lptscotcherr -lz -lpthread -lm -o libptscotch-$(VERSION)$(SHLIB_EXT)
 +					ln -sf libptscotch-$(VERSION)$(SHLIB_EXT) libptscotch$(SHLIB_EXT)
 +					$(AR) $(ARFLAGS) $(@) $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS)
- 					-$(RANLIB) $(@)
 +     sleep 1
 +     touch $(@)
+ 					-$(RANLIB) $(@)
+
 
  libptscotcherr$(LIB)		:	library_error_pt$(OBJ)
 +					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotcherr-$(VERSION)$(SHLIB_EXT) $^ -o libptscotcherr-$(VERSION)$(SHLIB_EXT)
 +					ln -sf libptscotcherr-$(VERSION)$(SHLIB_EXT) libptscotcherr$(SHLIB_EXT)
++					sleep 1
++					touch $(@)
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
-+     sleep 1
-+     touch $(@)
+
 
  libptscotcherrexit$(LIB)	:	library_error_exit_pt$(OBJ)
 +					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotcherrexit-$(VERSION)$(SHLIB_EXT) $^ -o libptscotcherrexit-$(VERSION)$(SHLIB_EXT)
 +					ln -sf libptscotcherrexit-$(VERSION)$(SHLIB_EXT) libptscotcherrexit$(SHLIB_EXT)
++					sleep 1
++					touch $(@)
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
-+     sleep 1
-+     touch $(@)
 Index: scotch/src/esmumps/Makefile
 ===================================================================
 --- scotch.orig/src/esmumps/Makefile
