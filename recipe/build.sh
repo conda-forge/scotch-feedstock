@@ -52,6 +52,8 @@ elif [[ "$PKG_NAME" == "ptscotch" ]]; then
 
   # build
   cd src/
+  # Get an updated config.sub and config.guess
+  cp $BUILD_PREFIX/share/gnuconfig/config.* .
   make ptesmumps
   cd ..
 
