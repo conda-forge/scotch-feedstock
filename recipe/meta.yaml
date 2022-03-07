@@ -77,7 +77,6 @@ outputs:
       build:
         - {{ compiler('c') }}
         - make
-        - gnuconfig # [unix]
         - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
       host:
         - flex
