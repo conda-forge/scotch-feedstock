@@ -22,6 +22,10 @@ flex:
 - 2.6.4
 mpi:
 - openmpi
+mpich:
+- '4'
+openmpi:
+- '4'
 pin_run_as_build:
   scotch:
     min_pin: x.x.x

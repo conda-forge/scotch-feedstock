@@ -18,6 +18,10 @@ macos_machine:
 - arm64-apple-darwin20.0.0
 mpi:
 - mpich
+mpich:
+- '4'
+openmpi:
+- '4'
 pin_run_as_build:
   scotch:
     min_pin: x.x.x
