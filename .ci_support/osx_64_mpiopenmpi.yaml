@@ -5,7 +5,7 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '12'
+- '14'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -13,7 +13,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '12'
+- '14'
 flex:
 - 2.6.4
 macos_machine:
@@ -25,21 +25,15 @@ mpich:
 openmpi:
 - '4'
 pin_run_as_build:
-  bzip2:
-    max_pin: x
   scotch:
     min_pin: x.x.x
     max_pin: x.x.x
-  xz:
-    max_pin: x.x
-  zlib:
-    max_pin: x.x
 scotch:
 - 6.0.9
 target_platform:
 - osx-64
 xz:
-- '5.2'
+- '5'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
