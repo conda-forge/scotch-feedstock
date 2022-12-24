@@ -1,5 +1,5 @@
 {% set name = "scotch" %}
-{% set version = "6.1.3" %}
+{% set version = "7.0.2" %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -10,7 +10,7 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
-  sha256: 4e54f056199e6c23d46581d448fcfe2285987e5554a0aa527f7931684ef2809e
+  sha256: 17db72097dea75522570fe26ece62d99d480a2ea49954181d87b3e1dc913e05b
   patches:
     - patch1.diff
     - debian-dynamic.patch
