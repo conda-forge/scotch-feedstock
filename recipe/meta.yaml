@@ -33,7 +33,7 @@ outputs:
         # preserve mpi variant for builds
         - mpi * {{ mpi }}
       host:
-        - bison <3.8
+        - bison
         - flex
         - zlib
         - bzip2

@@ -22,6 +22,8 @@ export VERSION=$PKG_VERSION
 
 if [[ "$PKG_NAME" == "scotch" ]]; then
 
+  echo "**** Building scotch"
+
   # build
   cd src/
   make esmumps
@@ -39,6 +41,8 @@ if [[ "$PKG_NAME" == "scotch" ]]; then
   cp -rv include/* $PREFIX/include/
 
 elif [[ "$PKG_NAME" == "ptscotch" ]]; then
+
+  echo "**** Building ptscotch"
 
   export CCP=mpicc
   # This is only used by open-mpi's mpicc
