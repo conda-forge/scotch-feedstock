@@ -12,7 +12,7 @@ source:
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
   sha256: 17db72097dea75522570fe26ece62d99d480a2ea49954181d87b3e1dc913e05b
   patches:
-    - patch1.diff
+    # - patch1.diff
     - debian-dynamic.patch
     - dummysizes_cross_compile.patch
 

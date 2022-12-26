@@ -1,3 +1,5 @@
+conda-forge: This patch is available at https://sources.debian.org/patches/scotch/7.0.2-1/build-shared-library-soname.patch/
+
 This patch does several things to make the Scotch build system work for Debian:
   * Default to building scotch and ptscotch
   * Clean up installation
@@ -11,48 +13,48 @@ Last-Update: 2011-04-01
 
 Index: scotch/src/Makefile
 ===================================================================
---- scotch.orig/src/Makefile	2021-06-27 23:11:26.531693643 +0200
-+++ scotch/src/Makefile	2021-06-27 23:11:26.523693441 +0200
-@@ -36,7 +36,7 @@
- 
+--- scotch.orig/src/Makefile	2022-12-25 02:16:18.922626918 +0100
++++ scotch/src/Makefile	2022-12-25 02:16:18.910626790 +0100
+@@ -37,7 +37,7 @@
+
  .PHONY				:	clean	default	install	ptscotch	realclean	required	scotch
- 
+
 -default				:	scotch
 +default				:	scotch ptscotch
- 
+
  required			:	Makefile.inc	../bin	../include	../lib
- 
-@@ -97,14 +97,14 @@
- 
+
+@@ -98,14 +98,14 @@
+
  scotch				:	libscotch
- 					(cd scotch ;         $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) scotch && $(MAKE) install)
+ 					(cd scotch ;         $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) CODENAME=$(CODENAME) scotch && $(MAKE) install)
 -					(cd libscotchmetis ; $(MAKE)                                                                scotch && $(MAKE) install)
 +					(cd libscotchmetis ; $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) scotch && $(MAKE) install)
- 
+
  libptscotch			:	libscotch
  					(cd libscotch ;      $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) ptscotch && $(MAKE) ptinstall)
- 
+
  ptscotch			:	libptscotch
- 					(cd scotch ;         $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) ptscotch && $(MAKE) ptinstall)
+ 					(cd scotch ;         $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) CODENAME=$(CODENAME) ptscotch && $(MAKE) ptinstall)
 -					(cd libscotchmetis ; $(MAKE)                                                                ptscotch && $(MAKE) ptinstall)
 +					(cd libscotchmetis ; $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) ptscotch && $(MAKE) ptinstall)
- 
+
  check				:	scotch
  					(cd check ; $(MAKE) check)
-@@ -119,22 +119,19 @@
+@@ -120,22 +120,19 @@
  					(cd check ; $(MAKE) ptcheck_full)
- 
+
  esmumps				:	scotch
 -					(cd esmumps ; $(MAKE) scotch && $(MAKE) install)
 +					(cd esmumps ; $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) scotch && $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) install)
- 
+
  escheck				:	esmumps
  					(cd check ; $(MAKE) escheck)
- 
+
  ptesmumps			:	scotch	ptscotch
 -					(cd esmumps ; $(MAKE) ptscotch && $(MAKE) ptinstall)
 +					(cd esmumps ; $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) ptscotch && $(MAKE) VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL) ptinstall)
- 
+
  install				:	required	$(bindir)	$(includedir)	$(libdir)	$(mandir)/man1
 -					-$(CP) -f ../bin/[agm]*$(EXE) $(bindir)
 -					-$(CP) -f ../bin/d[agm]*$(EXE) $(bindir)
@@ -65,183 +67,183 @@ Index: scotch/src/Makefile
 +					$(CP) -af ../include/*.h $(includedir)
 +					$(CP) -af ../lib/lib* $(libdir)
 +					$(CP) -af ../man/* $(mandir)
- 
+
  installstub			:	required	$(includedir)
  					-$(CP) -f ../include/*metis*.h $(includestubdir)
 Index: scotch/src/libscotchmetis/Makefile
 ===================================================================
---- scotch.orig/src/libscotchmetis/Makefile	2021-06-27 23:11:26.531693643 +0200
-+++ scotch/src/libscotchmetis/Makefile	2021-06-27 23:12:09.056744382 +0200
-@@ -67,15 +67,15 @@
- 					libptscotchparmetis$(LIB)
- 
+--- scotch.orig/src/libscotchmetis/Makefile	2022-12-25 02:16:18.922626918 +0100
++++ scotch/src/libscotchmetis/Makefile	2022-12-25 02:16:18.910626790 +0100
+@@ -77,15 +77,15 @@
+ 					libptscotchparmetisv3$(LIB)
+
  install				:	scotch
 -					-$(CP) metis.h metisf.h $(includedir)
--					-$(CP) libscotchmetis$(LIB) $(libdir)
+-					-$(CP) libscotchmetisv3$(LIB) libscotchmetisv5$(LIB) $(libdir)
 +					-$(CP) -a metis.h metisf.h $(includedir)
-+					-$(CP) -a libscotchmetis$(LIB) libscotchmetis*$(SHLIB_EXT) $(libdir)
- 
++					-$(CP) -a libscotchmetisv3$(LIB) libscotchmetisv5$(LIB) libscotchmetisv3*.so libscotchmetisv5*.so $(libdir)
+
  ptinstall			:	ptscotch
 -					-$(CP) parmetis.h $(includedir)
--					-$(CP) libptscotchparmetis$(LIB) $(libdir)
+-					-$(CP) libptscotchparmetisv3$(LIB) $(libdir)
 +					-$(CP) -a parmetis.h $(includedir)
-+					-$(CP) -a libptscotchparmetis$(LIB) libptscotchparmetis*$(SHLIB_EXT) $(libdir)
- 
++					-$(CP) -a libptscotchparmetisv3$(LIB) libptscotchparmetisv3*.so $(libdir)
+
  clean				:
 -					-$(RM) *~ *$(OBJ) lib*$(LIB) metis.h metisf.h parmetis.h
-+					-$(RM) *~ *$(OBJ) lib*$(LIB) lib*$(SHLIB_EXT) lib*.a metis.h metisf.h parmetis.h
- 
++					-$(RM) *~ *$(OBJ) lib*$(LIB) lib*.so lib*.a metis.h metisf.h parmetis.h
+
  realclean			:	clean
- 
-@@ -187,6 +187,9 @@
- 					parmetis_dgraph_order_f$(OBJ)		\
- 					parmetis_dgraph_part$(OBJ)		\
- 					parmetis_dgraph_part_f$(OBJ)
-+					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotchparmetis-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -L../libscotch -lptscotch -lptscotcherr -lscotch -lm -o libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
-+					ln -sf libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotchparmetis-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -sf libptscotchparmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotchparmetis$(SHLIB_EXT)
+
+@@ -197,6 +197,9 @@
+ 					parmetis_dgraph_order_f_$(V)$(OBJ)	\
+ 					parmetis_dgraph_part_$(V)$(OBJ)		\
+ 					parmetis_dgraph_part_f_$(V)$(OBJ)
++					$(CC) -shared -Wl,-soname,libptscotchparmetis$(V)-$(VERSION).$(RELEASE).so $^ -L../libscotch -lptscotch -lptscotcherr -lscotch -lm -o libptscotchparmetis$(V)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					ln -s libptscotchparmetis$(V)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotchparmetis$(V)-$(VERSION).$(RELEASE).so
++					ln -s libptscotchparmetis$(V)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotchparmetis$(V).so
  					$(AR) $(ARFLAGS) $(@) $(^)
  					-$(RANLIB) $(@)
- 
-@@ -200,5 +203,8 @@
- 					metis_graph_part_dual_f$(OBJ)		\
- 					metis_options$(OBJ)			\
- 					metis_options_f$(OBJ)
-+					$(CC) -shared $(LDFLAGS) $(SONAME)libscotchmetis-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -L../libscotch -lscotch -lscotcherr -lm -o libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
-+					ln -sf libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotchmetis-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -sf libscotchmetis-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotchmetis$(SHLIB_EXT)
+
+@@ -210,5 +213,8 @@
+ 					metis_graph_part_dual_f_$(V)$(OBJ)	\
+ 					metis_options_$(V)$(OBJ)		\
+ 					metis_options_f_$(V)$(OBJ)
++					$(CC) -shared -Wl,-soname,libscotchmetis$(V)-$(VERSION).$(RELEASE).so $^ -L../libscotch -lscotch -lscotcherr -lm -o libscotchmetis$(V)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					ln -s libscotchmetis$(V)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotchmetis$(V)-$(VERSION).$(RELEASE).so
++					ln -s libscotchmetis$(V)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotchmetis$(V).so
  					$(AR) $(ARFLAGS) $(@) $(^)
  					-$(RANLIB) $(@)
 Index: scotch/src/libscotch/Makefile
 ===================================================================
---- scotch.orig/src/libscotch/Makefile	2021-06-27 23:11:26.531693643 +0200
-+++ scotch/src/libscotch/Makefile	2021-06-27 23:11:26.527693541 +0200
+--- scotch.orig/src/libscotch/Makefile	2022-12-25 02:16:18.922626918 +0100
++++ scotch/src/libscotch/Makefile	2022-12-25 02:16:18.914626833 +0100
 @@ -89,7 +89,7 @@
  					$(libdir)/libptscotch$(LIB)
- 
+
  clean				:
 -					-$(RM) *~ *$(OBJ) lib*$(LIB) parser_yy.c parser_ly.h parser_ll.c *scotch.h *scotchf.h y.output *dummysizes$(EXE)
-+					-$(RM) *~ *$(OBJ) lib*.a lib*$(SHLIB_EXT)* parser_yy.c parser_ly.h parser_ll.c *scotch.h *scotchf.h y.output *dummysizes$(EXE)
- 
++					-$(RM) *~ *$(OBJ) lib*.a lib*.so* parser_yy.c parser_ly.h parser_ll.c *scotch.h *scotchf.h y.output *dummysizes$(EXE)
+
  realclean			:	clean
- 
+
 @@ -99,22 +99,22 @@
  ##
- 
+
  $(includedir)/scotch.h		:	scotch.h
 -					-$(CP) scotch.h $(includedir)
 +					$(CP) -a scotch.h $(includedir)
- 
+
  $(includedir)/scotchf.h		:	scotchf.h
 -					-$(CP) scotchf.h $(includedir)
 +					$(CP) -a scotchf.h $(includedir)
- 
+
  $(includedir)/ptscotch.h	:	ptscotch.h
 -					-$(CP) ptscotch.h $(includedir)
 +					$(CP) -a ptscotch.h $(includedir)
- 
+
  $(includedir)/ptscotchf.h	:	ptscotchf.h
 -					-$(CP) ptscotchf.h $(includedir)
 +					$(CP) -a ptscotchf.h $(includedir)
- 
+
  $(libdir)/libscotch$(LIB)	:	libscotch$(LIB)
 -					-$(CP) libscotch$(LIB) libscotcherr*$(LIB) $(libdir)
 +					$(CP) -a libscotch* $(libdir)
- 
+
  $(libdir)/libptscotch$(LIB)	:	libptscotch$(LIB)
 -					-$(CP) libptscotch$(LIB) libptscotcherr*$(LIB) $(libdir)
 +					$(CP) -a libptscotch* $(libdir)
- 
+
  ##
  ##  Library dependencies.
-@@ -3121,26 +3121,45 @@
+@@ -3261,26 +3261,44 @@
  					library_pt_f.h
  					./ptdummysizes$(EXE) "-s$(SCOTCH_NAME_SUFFIX)" library_pt_f.h ptscotchf.h
- 
+
 -libscotch$(LIB)			:	$(LIBSCOTCHDEPS)
 -					$(AR) $(ARFLAGS) $(@) $(?)
 +libscotch$(LIB)			:	$(LIBSCOTCHDEPS) libscotcherr$(LIB)
-+					$(CC) -shared $(LDFLAGS) $(SONAME)libscotch-$(VERSION).$(RELEASE)$(SHLIB_EXT) $(LIBSCOTCHDEPS) -L. -lscotcherr -lz -lbz2 -llzma -lpthread -lm -o libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
-+					ln -sf libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotch-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -sf libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotch$(SHLIB_EXT)
++					$(CC) -shared -Wl,-soname,libscotch-$(VERSION).$(RELEASE).so $(LIBSCOTCHDEPS) -L. -lscotcherr -lz -lbz2 -llzma -lpthread -lm -lrt -o libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					ln -s libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotch-$(VERSION).$(RELEASE).so
++					ln -s libscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotch.so
 +					$(AR) $(ARFLAGS) $(@) $(LIBSCOTCHDEPS)
  					-$(RANLIB) $(@)
- 
+
  libscotcherr$(LIB)		:	library_error$(OBJ)
-+					$(CC) -shared $(LDFLAGS) $(SONAME)libscotcherr-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -o libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
-+					ln -sf libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherr-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -sf libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherr$(SHLIB_EXT)
++					$(CC) -shared -Wl,-soname,libscotcherr-$(VERSION).$(RELEASE).so $^ -o libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					ln -s libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherr-$(VERSION).$(RELEASE).so
++					ln -s libscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherr.so
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
- 
+
  libscotcherrexit$(LIB)		:	library_error_exit$(OBJ)
-+					$(CC) -shared $(LDFLAGS) $(SONAME)libscotcherrexit-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -o libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
-+					ln -sf libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherrexit-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -sf libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libscotcherrexit$(SHLIB_EXT)
++					$(CC) -shared -Wl,-soname,libscotcherrexit-$(VERSION).$(RELEASE).so $^ -o libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					ln -s libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherrexit-$(VERSION).$(RELEASE).so
++					ln -s libscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libscotcherrexit.so
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
- 
+
 -libptscotch$(LIB)		:	$(LIBPTSCOTCHDEPS)
 -					$(AR) $(ARFLAGS) $(@) $(?)
 +libptscotch$(LIB)		:	$(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS) libptscotcherr$(LIB)
-+					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotch-$(VERSION).$(RELEASE)$(SHLIB_EXT) $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS) -L. -lptscotcherr -lz -lbz2 -llzma -lpthread -lm -o libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
-+					ln -sf libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotch-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -sf libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotch$(SHLIB_EXT)
++					$(CC) -shared -Wl,-soname,libptscotch-$(VERSION).$(RELEASE).so $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS) -L. -lptscotcherr -lz -lbz2 -llzma -lpthread -lm -lrt -o libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					ln -s libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotch-$(VERSION).$(RELEASE).so
++					ln -s libptscotch-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotch.so
 +					$(AR) $(ARFLAGS) $(@) $(LIBPTSCOTCHDEPS) $(LIBSCOTCHDEPS)
  					-$(RANLIB) $(@)
- 
+
  libptscotcherr$(LIB)		:	library_error_pt$(OBJ)
-+					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotcherr-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -o libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
-+					ln -sf libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotcherr-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -sf libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotcherr$(SHLIB_EXT)
-+					sleep 1
++					$(CC) -shared -Wl,-soname,libptscotcherr-$(VERSION).$(RELEASE).so $^ -o libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					ln -s libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherr-$(VERSION).$(RELEASE).so
++					ln -s libptscotcherr-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherr.so
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
- 
+
  libptscotcherrexit$(LIB)	:	library_error_exit_pt$(OBJ)
-+					$(CC) -shared $(LDFLAGS) $(SONAME)libptscotcherrexit-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -o libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
-+					ln -sf libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotcherrexit-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -sf libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) libptscotcherrexit$(SHLIB_EXT)
++					$(CC) -shared -Wl,-soname,libptscotcherrexit-$(VERSION).$(RELEASE).so $^ -o libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					ln -s libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherrexit-$(VERSION).$(RELEASE).so
++					ln -s libptscotcherrexit-$(VERSION).$(RELEASE).$(PATCHLEVEL).so libptscotcherrexit.so
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
 Index: scotch/src/esmumps/Makefile
 ===================================================================
---- scotch.orig/src/esmumps/Makefile	2021-06-27 23:11:26.531693643 +0200
-+++ scotch/src/esmumps/Makefile	2021-06-27 23:11:26.527693541 +0200
-@@ -45,7 +45,8 @@
+--- scotch.orig/src/esmumps/Makefile	2022-12-25 02:16:18.922626918 +0100
++++ scotch/src/esmumps/Makefile	2022-12-25 02:24:24.335721540 +0100
+@@ -45,7 +45,7 @@
  				$(CC) $(CFLAGS) $(CLIBFLAGS) -I$(srclibscotchdir) -I$(includedir) -c $(<) -o $(@)
- 
+
  %$(EXE)	:	%.c
--		 		$(CC) $(CFLAGS) -I$(srclibscotchdir) -I$(includedir) $(<) -o $(@) -L. -lesmumps -L$(libdir) -lscotch -lscotcherrexit $(LDFLAGS)
-+		 		$(CC) $(CFLAGS) -I$(srclibscotchdir) -I$(includedir) $(<) -o $(@) -L. -l$(ESMUMPSLIB) -L$(libdir) -l$(SCOTCHLIB) -l$(SCOTCHLIB)errexit $(LDFLAGS)
-+
- 
+-				$(CC) $(CFLAGS) -I$(srclibscotchdir) -I$(includedir) $(<) -o $(@) -L. -lesmumps -L$(libdir) -lscotch -lscotcherrexit $(LDFLAGS)
++				$(CC) $(CFLAGS) -I$(srclibscotchdir) -I$(includedir) $(<) -o $(@) -L. -l$(ESMUMPSLIB) -L$(libdir) -l$(SCOTCHLIB) -l$(SCOTCHLIB)errexit $(LDFLAGS)
+
  ##
  ##  Project rules.
-@@ -54,24 +55,32 @@
+@@ -54,25 +54,33 @@
  .PHONY				:	ptscotch	scotch	ptinstall	install	clean	realclean
- 
- scotch				:	clean
+
+ scotch				:
 -					$(MAKE) CC="$(CCS)" CCD="$(CCS)"	\
-+					$(MAKE) CC="$(CCS)" CCD="$(CCS)" SCOTCHLIB=scotch ESMUMPSLIB=esmumps	\
-+					VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL)		\
++					$(MAKE) CC="$(CCS)" CCD="$(CCS)" SCOTCHLIB=scotch ESMUMPSLIB=esmumps    \
++					VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL)          \
  					libesmumps$(LIB)			\
- 					main_esmumps$(EXE)
- 
+ 					test_esmumps$(EXE)			\
+ 					test_fax$(EXE)
+
 -ptscotch			:	scotch
-+ptscotch			:	clean
-+					$(MAKE) CFLAGS="$(CFLAGS) -DSCOTCH_PTSCOTCH" CC="$(CCP)" SCOTCHLIB=ptscotch ESMUMPSLIB=ptesmumps	\
-+					VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL)						\
-+					libptesmumps$(LIB)											\
-+					main_ptesmumps$(EXE)
- 
++ptscotch			:       clean
++					$(MAKE) CFLAGS="$(CFLAGS) -DSCOTCH_PTSCOTCH" CC="$(CCP)" SCOTCHLIB=ptscotch ESMUMPSLIB=ptesmumps        \
++					VERSION=$(VERSION) RELEASE=$(RELEASE) PATCHLEVEL=$(PATCHLEVEL)                                          \
++					libptesmumps$(LIB)                                                                                      \
++					test_ptesmumps$(EXE)
+
  install				:	scotch					\
  					library.h
  					-$(CP) library.h $(includedir)/esmumps.h
 -					-$(CP) libesmumps$(LIB) $(libdir)
 +					-$(CP) -a libesmumps* $(libdir)
-+					-$(CP) -a main_esmumps$(EXE) $(bindir)/scotch_esmumps
- 
++					-$(CP) -a test_esmumps$(EXE) $(bindir)/scotch_test_esmumps
++					-$(CP) -a test_fax$(EXE) $(bindir)/scotch_test_fax
+
 -ptinstall			:	scotch					\
 +ptinstall			:	ptscotch					\
  					library.h
@@ -249,30 +251,48 @@ Index: scotch/src/esmumps/Makefile
 -					-$(CP) libesmumps$(LIB) $(libdir)/libptesmumps$(LIB)
 +					-$(CP) library.h $(includedir)/ptesmumps.h
 +					-$(CP) -a libptesmumps* $(libdir)
-+					-$(CP) -a main_ptesmumps$(EXE) $(bindir)/ptscotch_esmumps
-+
- 
++					-$(CP) -a test_ptesmumps$(EXE) $(bindir)/ptscotch_test_esmumps
+
  clean				:
--					-$(RM) *~ common.h *$(OBJ) lib*$(LIB) main_esmumps$(EXE)
-+					-$(RM) *~ common.h *$(OBJ) lib*$(LIB) lib*$(SHLIB_EXT) main_*esmumps$(EXE)
- 
+-					-$(RM) *~ common.h *$(OBJ) lib*$(LIB) test_esmumps$(EXE) test_fax$(EXE)
++					-$(RM) *~ common.h *$(OBJ) lib*$(LIB) lib*.so test_*esmumps$(EXE) test_fax$(EXE)
+
  realclean			:	clean
- 
-@@ -195,7 +204,10 @@
+
+@@ -203,7 +211,10 @@
  					order.h					\
  					fax.h
- 
+
 -libesmumps$(LIB)		:	$(LIBESMUMPSDEPS)
 +lib$(ESMUMPSLIB)$(LIB)		:	$(LIBESMUMPSDEPS)
-+					$(CC) -shared $(LDFLAGS) $(SONAME)lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE)$(SHLIB_EXT) $^ -L../libscotch -l$(SCOTCHLIB) -l$(SCOTCHLIB)err -o lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT)
-+					ln -sf lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE)$(SHLIB_EXT)
-+					ln -sf lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL)$(SHLIB_EXT) lib$(ESMUMPSLIB)$(SHLIB_EXT)
++					$(CC) -shared -Wl,-soname,lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).so $^ -L../libscotch -l$(SCOTCHLIB) -l$(SCOTCHLIB)err -o lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so
++					ln -s lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).so
++					ln -s lib$(ESMUMPSLIB)-$(VERSION).$(RELEASE).$(PATCHLEVEL).so lib$(ESMUMPSLIB).so
  					$(AR) $(ARFLAGS) $(@) $(?)
  					-$(RANLIB) $(@)
- 
-@@ -206,6 +218,12 @@
+
+@@ -214,9 +225,15 @@
  					order.h					\
  					symbol.h				\
+ 					esmumps.h				\
+-					libesmumps$(LIB)			\
+-					$(libdir)/libscotch$(LIB)		\
+-					$(libdir)/libscotcherrexit$(LIB)
++					lib$(ESMUMPSLIB)$(LIB)                  \
++					$(libdir)/lib$(SCOTCHLIB)$(LIB)         \
++					$(libdir)/lib$(SCOTCHLIB)errexit$(LIB)
++
++test_ptesmumps$(EXE)		:
++					-$(MV) test_esmumps$(EXE) test_tmp_esmumps$(EXE) 2>/dev/null || /bin/true
++					$(MAKE) CFLAGS="$(CFLAGS) -DSCOTCH_PTSCOTCH" CC="$(CCP)" SCOTCHLIB=ptscotch ESMUMPSLIB=ptesmumps test_esmumps$(EXE)
++					$(MV) -f test_esmumps$(EXE) test_ptesmumps$(EXE)
++					-$(MV) test_tmp_esmumps$(EXE) test_esmumps$(EXE) 2>/dev/null || /bin/true
+
+ test_fax$(EXE)			:	test_fax.c				\
+ 					$(srclibscotchdir)/common.h		\
+@@ -227,6 +244,6 @@
+ 					symbol.h				\
+ 					fax.h					\
  					esmumps.h				\
 -					libesmumps$(LIB)			\
 -					$(libdir)/libscotch$(LIB)		\
@@ -280,38 +300,41 @@ Index: scotch/src/esmumps/Makefile
 +					lib$(ESMUMPSLIB)$(LIB)			\
 +					$(libdir)/lib$(SCOTCHLIB)$(LIB)		\
 +					$(libdir)/lib$(SCOTCHLIB)errexit$(LIB)
-+
-+main_ptesmumps$(EXE)		:
-+					-$(MV) main_esmumps$(EXE) main_tmp_esmumps$(EXE) 2>/dev/null || /bin/true
-+					$(MAKE) CFLAGS="$(CFLAGS) -DSCOTCH_PTSCOTCH" CC="$(CCP)" SCOTCHLIB=ptscotch ESMUMPSLIB=ptesmumps main_esmumps$(EXE)
-+					$(MV) -f main_esmumps$(EXE) main_ptesmumps$(EXE)
-+					-$(MV) main_tmp_esmumps$(EXE) main_esmumps$(EXE) 2>/dev/null || /bin/true
 Index: scotch/src/scotch/Makefile
 ===================================================================
---- scotch.orig/src/scotch/Makefile	2021-06-27 23:11:26.531693643 +0200
-+++ scotch/src/scotch/Makefile	2021-06-27 23:11:26.527693541 +0200
-@@ -41,13 +41,13 @@
+--- scotch.orig/src/scotch/Makefile	2022-12-25 02:16:18.922626918 +0100
++++ scotch/src/scotch/Makefile	2022-12-25 02:16:18.914626833 +0100
+@@ -47,13 +47,13 @@
  include ../Makefile.inc
- 
+
  %$(EXE)	:	%$(OBJ)
 -		 		$(CC) $(CFLAGS) -I$(includedir) -I../libscotch $(<) -o $(@) -L$(libdir) -l$(SCOTCHLIB) -lscotch -l$(SCOTCHLIB)errexit $(LDFLAGS)
 +		 		$(CC) $(CFLAGS) -I$(includedir) -I../libscotch $(<) -o $(@) -L$(libdir) -l$(SCOTCHLIB) -lscotcherr -l$(SCOTCHLIB)errexit $(LDFLAGS)
- 
+
  %$(OBJ)	:	%.c
- 				$(CC) $(CFLAGS) -I$(includedir) -I../libscotch -c $(<) -o $(@)
- 
+ 				$(CC) $(CFLAGS) -I$(includedir) -I../libscotch $(CODENAMEDEF) -c $(<) -o $(@)
+
  %$(EXE)	:	%.c
--		 		$(CC) $(CFLAGS) -I$(includedir) -I../libscotch $(<) -o $(@) -L$(libdir) -l$(SCOTCHLIB) -lscotch -l$(SCOTCHLIB)errexit $(LDFLAGS)
-+		 		$(CC) $(CFLAGS) -I$(includedir) -I../libscotch $(<) -o $(@) -L$(libdir) -l$(SCOTCHLIB) -lscotcherr -l$(SCOTCHLIB)errexit $(LDFLAGS)
- 
+-				$(CC) $(CFLAGS) -I$(includedir) -I../libscotch $(CODENAMEDEF) $(<) -o $(@) -L$(libdir) -l$(SCOTCHLIB) -lscotch -l$(SCOTCHLIB)errexit $(LDFLAGS)
++				$(CC) $(CFLAGS) -I$(includedir) -I../libscotch $(CODENAMEDEF) $(<) -o $(@) -L$(libdir) -l$(SCOTCHLIB) -lscotcherr -l$(SCOTCHLIB)errexit $(LDFLAGS)
+
  ##
  ##  Project rules.
-@@ -339,7 +339,7 @@
+@@ -337,7 +337,7 @@
+ 					$(includedir)/scotch.h			\
+ 					$(libdir)/libscotch$(LIB)		\
+ 					$(libdir)/libscotcherrexit$(LIB)
+-					$(CC) $(CFLAGS) -I../libscotch -I$(includedir) gout_c.c gout_o.c -o $(@) -L$(libdir) -lscotch -lscotcherrexit $(LDFLAGS)
++					$(CC) $(CFLAGS) -I../libscotch -I$(includedir) gout_c.c gout_o.c -o $(@) -L$(libdir) -l$(SCOTCHLIB) -lscotcherr -lscotcherrexit $(LDFLAGS)
+
+ gpart$(EXE)			:	gmap.c					\
+ 					../libscotch/module.h			\
+@@ -346,7 +346,7 @@
  					$(libdir)/libscotch$(LIB)		\
  					$(libdir)/libscotcherrexit$(LIB)	\
  					gmap.h
 -			 		$(CC) $(CFLAGS) -I$(includedir) -I../libscotch $(<) -DSCOTCH_COMPILE_PART -o $(@) -L$(libdir) -lscotch -lscotcherrexit $(LDFLAGS)
 +			 		$(CC) $(CFLAGS) -I$(includedir) -I../libscotch $(<) -DSCOTCH_COMPILE_PART -o $(@) -L$(libdir) -l$(SCOTCHLIB) -lscotcherr -lscotcherrexit $(LDFLAGS)
- 
+
  gscat$(EXE)			:	gscat.c					\
  					../libscotch/module.h			\
