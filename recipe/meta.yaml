@@ -48,8 +48,6 @@ outputs:
         - cmake
         - make
         - ninja         # [win]
-        - clang         # [win]
-        - lld           # [win]
         - {{ mpi }}     # [build_platform != target_platform]
         - bison <3.8    # [unix]
         - flex          # [unix]
