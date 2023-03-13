@@ -1,16 +1,3 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 83144b4..c968afb 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -88,6 +88,8 @@ option(USE_BZ2 "Use BZ2 compression format if found" ON)
- # Set fPIC flag when building shared libraries
- set(CMAKE_POSITION_INDEPENDENT_CODE ${BUILD_SHARED_LIBS})
- 
-+enable_language(CXX)
-+
- # Allow for testing
- enable_testing()
- 
 diff --git a/src/libscotch/CMakeLists.txt b/src/libscotch/CMakeLists.txt
 index e3b0cb9..daa3afa 100644
 --- a/src/libscotch/CMakeLists.txt
