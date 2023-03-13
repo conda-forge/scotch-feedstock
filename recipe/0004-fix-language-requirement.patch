@@ -19,7 +19,7 @@ index f829e15..2dafd78 100644
 -project(SCOTCH)
  cmake_minimum_required(VERSION 3.10)
 -enable_language(C Fortran)
-+project(SCOTCH LANGUAGES C Fortran)
++project(SCOTCH LANGUAGES C CXX Fortran)
 +include(GenerateExportHeader)
  
  # Add module directory
