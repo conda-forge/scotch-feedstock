@@ -1,0 +1,41 @@
+diff --git a/src/libscotch/CMakeLists.txt b/src/libscotch/CMakeLists.txt
+index e3b0cb9..daa3afa 100644
+--- a/src/libscotch/CMakeLists.txt
++++ b/src/libscotch/CMakeLists.txt
+@@ -575,6 +575,8 @@ add_dependencies(scotcherrexit scotch_h)
+ #  libPTScotch  #
+ #################
+ 
++set_source_files_properties(bdgraph_bipart_st.c PROPERTIES LANGUAGE CXX )
++
+ set(PTSCOTCH_C_SOURCES
+   bdgraph.c
+   bdgraph.h
+diff --git a/src/libscotch/bdgraph_bipart_st.c b/src/libscotch/bdgraph_bipart_st.c
+index 733e5fc..6847c80 100644
+--- a/src/libscotch/bdgraph_bipart_st.c
++++ b/src/libscotch/bdgraph_bipart_st.c
+@@ -53,6 +53,11 @@
+ **  The defines and includes.
+ */
+ 
++#ifdef __cplusplus
++extern "C" {
++#endif
++
++
+ #include "module.h"
+ #include "common.h"
+ #include "gain.h"
+@@ -237,6 +242,11 @@ StratTab                    bdgraphbipartststratab = { /* Strategy tables for gr
+                               bdgraphbipartstparatab,
+                               bdgraphbipartstcondtab };
+ 
++#ifdef __cplusplus
++}
++#endif
++
++
+ /***********************************************/
+ /*                                             */
+ /* This is the generic bipartitioning routine. */
