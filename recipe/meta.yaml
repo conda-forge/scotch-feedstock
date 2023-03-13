@@ -45,7 +45,7 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
-        - {{ compiler('cxx') }}  # [win]
+        - {{ compiler('cxx') }}
         - {{ compiler('fortran') }}
         - cmake
         - make
