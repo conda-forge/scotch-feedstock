@@ -43,7 +43,8 @@ outputs:
     requirements:
       build:
         - {{ compiler('c') }}
-        - {{ compiler('fortran') }}
+        - {{ compiler('fortran') }}  # [not win]
+        - flang  # [win]
         - cmake
         - make
         - ninja         # [win]
