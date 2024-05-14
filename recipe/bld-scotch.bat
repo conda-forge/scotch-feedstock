@@ -3,6 +3,7 @@ set BISON_PKGDATADIR=%BUILD_PREFIX%\Library\share\winflexbison\data\
 :: MSVC is preferred.
 set CC=cl.exe
 set CXX=cl.exe
+set FC=flang-new
 
 cmake ^
   -G "Ninja" ^
