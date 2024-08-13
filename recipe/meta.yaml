@@ -1,5 +1,5 @@
 {% set name = "scotch" %}
-{% set version = "7.0.4" %}
+{% set version = "7.0.5" %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -10,7 +10,7 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
-  sha256: 8ef4719d6a3356e9c4ca7fefd7e2ac40deb69779a5c116f44da75d13b3d2c2c3
+  sha256: 385507a9712bb9057497b9ac3f24ad2132bd3f3f8c7a62e78324fc58f2a0079b
   patches:
     - 0001-Remove-unconditional-testing.patch
     - 0002-add-COMPONENT-labels-for-easier-split-installation.patch
@@ -29,7 +29,7 @@ source:
     - 0015-win-fix-unistd-time-include.patch
 
 build:
-  number: 5
+  number: 0
 
 outputs:
   - name: libscotch
