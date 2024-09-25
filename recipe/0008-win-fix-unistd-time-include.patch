@@ -1,0 +1,18 @@
+diff --git a/src/check/test_common_random.c b/src/check/test_common_random.c
+index 1de3e9a..0ad4a5b 100644
+--- a/src/check/test_common_random.c
++++ b/src/check/test_common_random.c
+@@ -138,8 +138,11 @@ char *              argv[])
+         SCOTCH_errorPrint ("Could not save random state");
+         break;
+     }
+-
+-    sleep (2);                                    /* Next run will not get the same time() value */
++#ifndef _WIN32
++    sleep (2);   
++#else
++    Sleep (2000);
++#endif                                 /* Next run will not get the same time() value */
+   }
+   else {                                          /* Second pass */
+     char *              charptr;

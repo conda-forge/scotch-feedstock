@@ -1,5 +1,5 @@
 {% set name = "scotch" %}
-{% set version = "7.0.4" %}
+{% set version = "7.0.5" %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -10,26 +10,21 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
-  sha256: 8ef4719d6a3356e9c4ca7fefd7e2ac40deb69779a5c116f44da75d13b3d2c2c3
+  sha256: 385507a9712bb9057497b9ac3f24ad2132bd3f3f8c7a62e78324fc58f2a0079b
   patches:
-    - 0001-Remove-unconditional-testing.patch
-    - 0002-add-COMPONENT-labels-for-easier-split-installation.patch
-    - 0003-put-metis-headers-in-include-scotch.patch
-    - 0004-fix-language-requirement.patch
-    - 0005-use-external-dummysizes.patch
-    - 0006-fix-ptesmumps.h.patch
-    - 0007-fix-empty-union.patch
-    - 0008-win-fix-ssize_t.patch
-    - 0009-win-fix-context.c.patch  # [win]
-    - 0010-win-fix-flex.patch
-    - 0011-win-do-not-link-m.patch
-    - 0012-win-fix-threads.patch
-    - 0013-win-fix-graph-match-scan.patch
-    - 0014-win-disable-fortran-test.patch
-    - 0015-win-fix-unistd-time-include.patch
+    - 0001-put-metis-headers-in-include-scotch.patch
+    - 0002-fix-ptesmumps.h.patch
+    - 0003-win-fix-ssize_t.patch
+    - 0004-win-fix-context.c.patch  # [win]
+    - 0005-win-fix-flex.patch
+    - 0006-win-fix-graph-match-scan.patch
+    - 0007-win-disable-fortran-test.patch
+    - 0008-win-fix-unistd-time-include.patch
+    - 0009-use-external-dummysizes.patch
+    - 0010-fix-idxsize.patch
 
 build:
-  number: 5
+  number: 0
 
 outputs:
   - name: libscotch
@@ -88,8 +83,6 @@ outputs:
         - if exist %PREFIX%\\Library\\include\\scotch\\metis.h (exit 0) else (exit 1)  # [win]
         - test ! -f "${PREFIX}/bin/gord"                                               # [unix]
         - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 1) else (exit 0)             # [win]
-        - test -f "$PREFIX/lib/cmake/scotch/SCOTCHConfig.cmake"                        # [unix]
-        - if not exist %LIBRARY_PREFIX\lib\cmake\scotch\SCOTCHConfig.cmake exit 1      # [win]
 
   - name: libptscotch
     build:
@@ -153,10 +146,12 @@ outputs:
         - {{ pin_subpackage('libscotch', exact=True) }}
     test:
       commands:
-        - test -f "${PREFIX}/bin/gord"                                       # [unix]
-        - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 0) else (exit 1)   # [win]
-        - test ! -f "${PREFIX}/bin/dgord"                                    # [unix]
-        - if exist %PREFIX%\\Library\\bin\\dgord.exe (exit 1) else (exit 0)  # [win]
+        - test -f "${PREFIX}/bin/gord"                                                 # [unix]
+        - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 0) else (exit 1)             # [win]
+        - test ! -f "${PREFIX}/bin/dgord"                                              # [unix]
+        - if exist %PREFIX%\\Library\\bin\\dgord.exe (exit 1) else (exit 0)            # [win]
+        - test -f "$PREFIX/lib/cmake/scotch/SCOTCHConfig.cmake"                        # [unix]
+        - if not exist %LIBRARY_PREFIX\lib\cmake\scotch\SCOTCHConfig.cmake exit 1      # [win]
 
   - name: ptscotch
     build:

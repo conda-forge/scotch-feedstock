@@ -1,0 +1,34 @@
+diff --git a/src/esmumps/CMakeLists.txt b/src/esmumps/CMakeLists.txt
+index 7d2fb92..2018d41 100644
+--- a/src/esmumps/CMakeLists.txt
++++ b/src/esmumps/CMakeLists.txt
+@@ -137,14 +137,27 @@ install(TARGETS esmumps
+   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ 
++# ptesmumps.h
++add_custom_command(OUTPUT ${GENERATED_INCLUDE_DIR}/ptesmumps.h
++  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/library.h ${GENERATED_INCLUDE_DIR}/ptesmumps.h
++  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/library.h
++  COMMENT "Copy ptesmumps.h to include directory")
++
++add_custom_target(ptesmumps_h
++  DEPENDS "${GENERATED_INCLUDE_DIR}/ptesmumps.h")
++
++set(ptesmumps_headers ${esmumps_headers})
++list(REMOVE_ITEM ptesmumps_headers "${GENERATED_INCLUDE_DIR}/esmumps.h")
++list(APPEND ptesmumps_headers "${GENERATED_INCLUDE_DIR}/ptesmumps.h")
++
+ # Dummy PTEsMUMPS library file
+-add_library(ptesmumps ${esmumps_src} ${esmumps_headers})
++add_library(ptesmumps ${esmumps_src} ${ptesmumps_headers})
+ 
+ if(APPLE)
+   set_target_properties(ptesmumps PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
+ endif(APPLE)
+ 
+-set_target_properties(ptesmumps PROPERTIES PUBLIC_HEADER "${GENERATED_INCLUDE_DIR}/esmumps.h")
++set_target_properties(ptesmumps PROPERTIES PUBLIC_HEADER "${GENERATED_INCLUDE_DIR}/ptesmumps.h")
+ 
+ set_target_properties(ptesmumps PROPERTIES VERSION ${SCOTCH_VERSION_LONG}
+   SOVERSION ${SCOTCH_VERSION}.${SCOTCH_RELEASE})
