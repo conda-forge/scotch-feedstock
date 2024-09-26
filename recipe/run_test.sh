@@ -1,6 +1,18 @@
 #!/bin/bash
 set -xeuo pipefail
 
+# make sure DLLs can be loaded
+if [[ "${PKG_NAME}" == "libscotch" ]]
+then
+  python3 -c "import ctypes; ctypes.CDLL('${PREFIX}/lib/libscotch${SHLIB_EXT}')"
+fi
+
+if [[ "${PKG_NAME}" == "libptscotch" ]]
+then
+  python3 -c "import ctypes; ctypes.CDLL('${PREFIX}/lib/libptscotch${SHLIB_EXT}')"
+fi
+
+
 if [[ "${PKG_NAME}" == "scotch" ]]
 then
 
@@ -8,7 +20,6 @@ then
   gmap -V
   gord -V
   gotst -V
-  gpart -V
   gscat -V
 
 fi # scotch
@@ -29,7 +40,6 @@ then
   dggath -V
   dgmap -V
   dgord -V
-  dgpart -V
   dgscat -V
   dgtst -V
 

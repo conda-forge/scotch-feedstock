@@ -12,6 +12,7 @@ source:
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
   sha256: 385507a9712bb9057497b9ac3f24ad2132bd3f3f8c7a62e78324fc58f2a0079b
   patches:
+    - link-scotcherr.patch
     - 0001-put-metis-headers-in-include-scotch.patch
     - 0002-fix-ptesmumps.h.patch
     - 0002-add-COMPONENT-labels-for-easier-split-installation.patch
@@ -59,8 +60,10 @@ outputs:
         - pthreads-win32  # [win]
 
     test:
+      script: run_test.sh  # [unix]
       requires:
         - {{ compiler('c') }}
+        - python
       commands:
         {% for lib in [
           'scotch',
@@ -102,10 +105,12 @@ outputs:
       run:
         - {{ pin_subpackage("libscotch", exact=True) }}
     test:
+      script: run_test.sh  # [unix]
       requires:
         - cmake
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
+        - python
       commands:
         {% for lib in [
           'ptscotch',
@@ -145,6 +150,7 @@ outputs:
       run:
         - {{ pin_subpackage('libscotch', exact=True) }}
     test:
+      script: run_test.sh  # [unix]
       commands:
         - test -f "${PREFIX}/bin/gord"                                                 # [unix]
         - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 0) else (exit 1)             # [win]
@@ -165,6 +171,7 @@ outputs:
         - {{ pin_subpackage('libptscotch', exact=True) }}
         - {{ pin_subpackage('scotch', exact=True) }}
     test:
+      script: run_test.sh  # [unix]
       commands:
         - test -f "${PREFIX}/bin/gord"                                       # [unix]
         - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 0) else (exit 1)   # [win]
