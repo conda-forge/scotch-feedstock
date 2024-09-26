@@ -1,0 +1,26 @@
+From a18e395cafa2fb3ebd551449b3b23b950d191361 Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
+Date: Fri, 20 May 2022 15:11:19 +0200
+Subject: [PATCH 2/4] add COMPONENT labels for easier split installation
+
+---
+iff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4531d15..f829e15 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -83,4 +83,4 @@ option(INSTALL_METIS_HEADERS "Install libScotchMeTiS headers in destination dire
+ add_subdirectory(src)
+ 
+ # Install man pages
+-install(DIRECTORY man/man1 DESTINATION man FILES_MATCHING PATTERN "*.1")
++install(DIRECTORY man/man1 DESTINATION man COMPONENT scotch FILES_MATCHING PATTERN "*.1")
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 3a924e6..253ea15 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -184,4 +184,5 @@ write_basic_package_version_file(SCOTCHConfigVersion.cmake
+ # Install config files
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SCOTCHConfig.cmake
+   ${CMAKE_CURRENT_BINARY_DIR}/SCOTCHConfigVersion.cmake
++  COMPONENT libscotch
+   DESTINATION ${LIBRARY_INSTALL_DIR}/cmake/scotch)

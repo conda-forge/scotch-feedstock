@@ -14,6 +14,7 @@ source:
   patches:
     - 0001-put-metis-headers-in-include-scotch.patch
     - 0002-fix-ptesmumps.h.patch
+    - 0002-add-COMPONENT-labels-for-easier-split-installation.patch
     - 0003-win-fix-ssize_t.patch
     - 0004-win-fix-context.c.patch  # [win]
     - 0005-win-fix-flex.patch
@@ -24,7 +25,7 @@ source:
     - 0010-fix-idxsize.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - name: libscotch
@@ -83,6 +84,8 @@ outputs:
         - if exist %PREFIX%\\Library\\include\\scotch\\metis.h (exit 0) else (exit 1)  # [win]
         - test ! -f "${PREFIX}/bin/gord"                                               # [unix]
         - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 1) else (exit 0)             # [win]
+        - test -f "$PREFIXlib/cmake/scotch/SCOTCHConfig.cmake"                        # [unix]
+        - if not exist %LIBRARY_PREFIX\lib\cmake\scotch\SCOTCHConfig.cmake exit 1      # [win]
 
   - name: libptscotch
     build:
@@ -147,8 +150,6 @@ outputs:
         - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 0) else (exit 1)             # [win]
         - test ! -f "${PREFIX}/bin/dgord"                                              # [unix]
         - if exist %PREFIX%\\Library\\bin\\dgord.exe (exit 1) else (exit 0)            # [win]
-        - test -f "$PREFIX/lib/cmake/scotch/SCOTCHConfig.cmake"                        # [unix]
-        - if not exist %LIBRARY_PREFIX\lib\cmake\scotch\SCOTCHConfig.cmake exit 1      # [win]
 
   - name: ptscotch
     build:
