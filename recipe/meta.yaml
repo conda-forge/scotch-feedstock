@@ -107,7 +107,6 @@ outputs:
     test:
       script: run_test.sh  # [unix]
       requires:
-        - cmake
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
         - python
