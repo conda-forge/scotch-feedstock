@@ -84,7 +84,7 @@ outputs:
         - if exist %PREFIX%\\Library\\include\\scotch\\metis.h (exit 0) else (exit 1)  # [win]
         - test ! -f "${PREFIX}/bin/gord"                                               # [unix]
         - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 1) else (exit 0)             # [win]
-        - test -f "$PREFIXlib/cmake/scotch/SCOTCHConfig.cmake"                        # [unix]
+        - test -f "$PREFIX/lib/cmake/scotch/SCOTCHConfig.cmake"                        # [unix]
         - if not exist %LIBRARY_PREFIX\lib\cmake\scotch\SCOTCHConfig.cmake exit 1      # [win]
 
   - name: libptscotch
