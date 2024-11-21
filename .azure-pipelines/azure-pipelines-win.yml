@@ -8,29 +8,11 @@ jobs:
     vmImage: windows-2022
   strategy:
     matrix:
-      win_64_mpiimpi-develpython3.10.____cpython:
-        CONFIG: win_64_mpiimpi-develpython3.10.____cpython
+      win_64_mpiimpi-devel:
+        CONFIG: win_64_mpiimpi-devel
         UPLOAD_PACKAGES: 'True'
-      win_64_mpiimpi-develpython3.11.____cpython:
-        CONFIG: win_64_mpiimpi-develpython3.11.____cpython
-        UPLOAD_PACKAGES: 'True'
-      win_64_mpiimpi-develpython3.12.____cpython:
-        CONFIG: win_64_mpiimpi-develpython3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-      win_64_mpiimpi-develpython3.9.____cpython:
-        CONFIG: win_64_mpiimpi-develpython3.9.____cpython
-        UPLOAD_PACKAGES: 'True'
-      win_64_mpimsmpipython3.10.____cpython:
-        CONFIG: win_64_mpimsmpipython3.10.____cpython
-        UPLOAD_PACKAGES: 'True'
-      win_64_mpimsmpipython3.11.____cpython:
-        CONFIG: win_64_mpimsmpipython3.11.____cpython
-        UPLOAD_PACKAGES: 'True'
-      win_64_mpimsmpipython3.12.____cpython:
-        CONFIG: win_64_mpimsmpipython3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-      win_64_mpimsmpipython3.9.____cpython:
-        CONFIG: win_64_mpimsmpipython3.9.____cpython
+      win_64_mpimsmpi:
+        CONFIG: win_64_mpimsmpi
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:
