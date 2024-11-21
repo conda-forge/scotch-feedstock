@@ -67,7 +67,7 @@ outputs:
         - src/check/data/m4x4.grf
       requires:
         - {{ compiler('c') }}
-        - python
+        - python 3.12
       commands:
         {% for lib in [
           'scotch',
@@ -115,7 +115,7 @@ outputs:
       requires:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - python
+        - python 3.12
       files:
         - test/test_ptscotch.cxx
         - test/test_scotch_dgraph_check.c
