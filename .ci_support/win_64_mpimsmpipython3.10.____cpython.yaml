@@ -1,0 +1,36 @@
+bzip2:
+- '1'
+c_compiler:
+- vs2019
+c_stdlib:
+- vs
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+cxx_compiler:
+- vs2019
+fortran_compiler:
+- flang
+fortran_compiler_version:
+- '5'
+mpi:
+- msmpi
+mpich:
+- '4'
+openmpi:
+- '5'
+pin_run_as_build:
+  python:
+    min_pin: x.x
+    max_pin: x.x
+python:
+- 3.10.* *_cpython
+scotch:
+- 7.0.5
+target_platform:
+- win-64
+xz:
+- '5'
+zlib:
+- '1'
