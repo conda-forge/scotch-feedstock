@@ -7,7 +7,7 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '17'
+- '18'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -19,7 +19,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '17'
+- '18'
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
@@ -32,6 +32,8 @@ mpich:
 - '4'
 openmpi:
 - '5'
+scotch:
+- 7.0.5
 target_platform:
 - osx-arm64
 xz:

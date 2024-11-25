@@ -26,7 +26,7 @@ source:
     - 0010-fix-idxsize.patch
 
 build:
-  number: 2
+  number: 3
 
 outputs:
   - name: libscotch
@@ -56,14 +56,18 @@ outputs:
         - {{ mpi }}
         - pthreads-win32  # [win]
       run:
-        - zlib
         - pthreads-win32  # [win]
 
     test:
-      script: run_test.sh  # [unix]
+      script: test-libscotch.sh  # [unix]
+      files:
+        - test/test_scotch.c
+      source_files:
+        - src/check/test_scotch_graph_color.c
+        - src/check/data/m4x4.grf
       requires:
         - {{ compiler('c') }}
-        - python
+        - python 3.12
       commands:
         {% for lib in [
           'scotch',
@@ -107,11 +111,16 @@ outputs:
         # msmpi has no run_exports
         - {{ pin_compatible("msmpi", max_pin="x.x") }}  # [mpi == 'msmpi']
     test:
-      script: run_test.sh  # [unix]
+      script: test-libptscotch.sh  # [unix]
       requires:
         - {{ compiler('c') }}
         - {{ compiler('cxx') }}
-        - python
+        - python 3.12
+      files:
+        - test/test_ptscotch.cxx
+        - test/test_scotch_dgraph_check.c
+      source_files:
+        - src/check/data/m4x4.grf
       commands:
         {% for lib in [
           'ptscotch',
@@ -151,12 +160,16 @@ outputs:
       run:
         - {{ pin_subpackage('libscotch', exact=True) }}
     test:
-      script: run_test.sh  # [unix]
       commands:
         - test -f "${PREFIX}/bin/gord"                                                 # [unix]
         - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 0) else (exit 1)             # [win]
         - test ! -f "${PREFIX}/bin/dgord"                                              # [unix]
         - if exist %PREFIX%\\Library\\bin\\dgord.exe (exit 1) else (exit 0)            # [win]
+        - mord -V
+        - gmap -V
+        - gord -V
+        - gotst -V
+        - gscat -V
 
   - name: ptscotch
     build:
@@ -172,12 +185,16 @@ outputs:
         - {{ pin_subpackage('libptscotch', exact=True) }}
         - {{ pin_subpackage('scotch', exact=True) }}
     test:
-      script: run_test.sh  # [unix]
       commands:
         - test -f "${PREFIX}/bin/gord"                                       # [unix]
         - if exist %PREFIX%\\Library\\bin\\gord.exe (exit 0) else (exit 1)   # [win]
         - test -f "${PREFIX}/bin/dgord"                                      # [unix]
         - if exist %PREFIX%\\Library\\bin\\dgord.exe (exit 0) else (exit 1)  # [win]
+        - dggath -V
+        - dgmap -V
+        - dgord -V
+        - dgscat -V
+        - dgtst -V
     about:
       summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
 

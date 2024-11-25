@@ -20,6 +20,8 @@ mpich:
 - '4'
 openmpi:
 - '5'
+scotch:
+- 7.0.5
 target_platform:
 - win-64
 xz:
