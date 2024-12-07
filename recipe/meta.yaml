@@ -51,7 +51,7 @@ outputs:
       host:
         - zlib
         - bzip2
-        - xz
+        - liblzma-devel
         - {{ mpi }}
         - pthreads-win32  # [win]
       run:
