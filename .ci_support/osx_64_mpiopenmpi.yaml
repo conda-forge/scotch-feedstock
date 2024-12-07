@@ -24,6 +24,10 @@ fortran_compiler:
 - gfortran
 fortran_compiler_version:
 - '13'
+libptscotch:
+- 7.0.5
+libscotch:
+- 7.0.5
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
