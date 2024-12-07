@@ -1,5 +1,5 @@
 {% set name = "scotch" %}
-{% set version = "7.0.5" %}
+{% set version = "7.0.6" %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -10,7 +10,7 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
-  sha256: 385507a9712bb9057497b9ac3f24ad2132bd3f3f8c7a62e78324fc58f2a0079b
+  sha256: b44acd0d2f53de4b578fa3a88944cccc45c4d2961cd8cefa9b9a1d5431de8e2b
   patches:
     - link-scotcherr.patch
     - 0001-put-metis-headers-in-include-scotch.patch
@@ -26,7 +26,7 @@ source:
     - 0010-fix-idxsize.patch
 
 build:
-  number: 3
+  number: 0
 
 outputs:
   - name: libscotch
