@@ -14,10 +14,8 @@ fortran_compiler:
 - flang
 fortran_compiler_version:
 - '5'
-libptscotch:
-- 7.0.5
-libscotch:
-- 7.0.5
+liblzma_devel:
+- '5'
 mpi:
 - msmpi
 mpich:
@@ -28,7 +26,5 @@ scotch:
 - 7.0.5
 target_platform:
 - win-64
-xz:
-- '5'
 zlib:
 - '1'
