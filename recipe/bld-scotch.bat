@@ -20,6 +20,8 @@ cmake ^
   -D CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON ^
   -D THREADS_PTHREADS_INCLUDE_DIR="%LIBRARY_INC%" ^
   -D THREADS_PTHREADS_WIN32_LIBRARY:FILEPATH="%LIBRARY_LIB%\pthread.lib" ^
+  -D LIBSCOTCHERR=scotcherr ^
+  -D LIBPTSCOTCHERR=ptscotcherr ^
   -B build ^
   %SRC_DIR%
 if errorlevel 1 exit 1

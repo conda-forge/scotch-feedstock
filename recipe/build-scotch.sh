@@ -58,6 +58,8 @@ cmake ${CMAKE_ARGS} \
   -D ENABLE_TESTING=OFF \
   -D BUILD_SHARED_LIBS=ON \
   -D BUILD_DUMMYSIZES=$BUILD_DUMMYSIZES \
+  -D LIBSCOTCHERR=scotcherr \
+  -D LIBPTSCOTCHERR=ptscotcherr \
   -B build \
   .
 
