@@ -26,7 +26,7 @@ source:
     - 0010-fix-idxsize.patch
 
 build:
-  number: 3
+  number: 4
 
 outputs:
   - name: libscotch
@@ -52,7 +52,7 @@ outputs:
       host:
         - zlib
         - bzip2
-        - xz
+        - liblzma-devel
         - {{ mpi }}
         - pthreads-win32  # [win]
       run:
