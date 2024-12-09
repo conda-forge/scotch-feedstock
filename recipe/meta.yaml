@@ -29,8 +29,9 @@ build:
 outputs:
   - name: libscotch
     build:
-      script: ${RECIPE_DIR}/build-scotch.sh  # [unix]
-      script: "%RECIPE_DIR%\\bld-scotch.bat"  # [win]
+      script:
+        - ${RECIPE_DIR}/build-scotch.sh  # [unix]
+        - "%RECIPE_DIR%\\bld-scotch.bat"  # [win]
       run_exports:
         - {{ pin_subpackage('libscotch', max_pin='x.x.x') }}
       ignore_run_exports_from:
@@ -67,16 +68,10 @@ outputs:
         - {{ compiler('c') }}
         - python 3.12
       commands:
-        {% for lib in [
-          'scotch',
-          'scotcherr',
-          'scotcherrexit',
-          'esmumps',
-        ]
-        %}
+{% for lib in ['scotch', 'scotcherr', 'scotcherrexit', 'esmumps'] %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"                             # [unix]
         - if exist %PREFIX%\\Library\\lib\\{{ lib }}.lib (exit 0) else (exit 1)        # [win]
-        {% endfor %}
+{% endfor %}
         - test -f "${PREFIX}/include/scotch.h"                                         # [unix]
         - if exist %PREFIX%\\Library\\include\\scotch.h (exit 0) else (exit 1)         # [win]
         - test -f "${PREFIX}/include/scotchf.h"                                        # [unix]
@@ -120,16 +115,10 @@ outputs:
       source_files:
         - src/check/data/m4x4.grf
       commands:
-        {% for lib in [
-          'ptscotch',
-          'ptscotcherr',
-          'ptscotcherrexit',
-          'ptesmumps'
-        ]
-        %}
+{% for lib in ['ptscotch', 'ptscotcherr', 'ptscotcherrexit', 'ptesmumps'] %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"                                 # [unix]
         - if exist %PREFIX%\\Library\\lib\\{{ lib }}.lib (exit 0) else (exit 1)            # [win]
-        {% endfor %}
+{% endfor %}
         - test -f "${PREFIX}/include/ptscotch.h"                                           # [unix]
         - if exist %PREFIX%\\Library\\include\\ptscotch.h (exit 0) else (exit 1)           # [win]
         - test -f "${PREFIX}/include/ptscotchf.h"                                          # [unix]
