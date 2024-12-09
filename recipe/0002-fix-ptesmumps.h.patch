@@ -1,34 +1,26 @@
+From 0689217f6e2c8a06fa5683ed9858ae86348b2977 Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
+Date: Mon, 9 Dec 2024 12:46:55 +0100
+Subject: [PATCH] undouble-esmumps.h
+
+Avoid installing esmumps.h twice, with both scotch and ptscotch
+
+---
+ src/esmumps/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 diff --git a/src/esmumps/CMakeLists.txt b/src/esmumps/CMakeLists.txt
-index 7d2fb92..2018d41 100644
+index 7c3ab62..d5ebca8 100644
 --- a/src/esmumps/CMakeLists.txt
 +++ b/src/esmumps/CMakeLists.txt
-@@ -137,14 +137,27 @@ install(TARGETS esmumps
-   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+@@ -149,7 +149,6 @@ if(BUILD_PTSCOTCH)
+     set_target_properties(ptesmumps PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
+   endif()
  
-+# ptesmumps.h
-+add_custom_command(OUTPUT ${GENERATED_INCLUDE_DIR}/ptesmumps.h
-+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/library.h ${GENERATED_INCLUDE_DIR}/ptesmumps.h
-+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/library.h
-+  COMMENT "Copy ptesmumps.h to include directory")
-+
-+add_custom_target(ptesmumps_h
-+  DEPENDS "${GENERATED_INCLUDE_DIR}/ptesmumps.h")
-+
-+set(ptesmumps_headers ${esmumps_headers})
-+list(REMOVE_ITEM ptesmumps_headers "${GENERATED_INCLUDE_DIR}/esmumps.h")
-+list(APPEND ptesmumps_headers "${GENERATED_INCLUDE_DIR}/ptesmumps.h")
-+
- # Dummy PTEsMUMPS library file
--add_library(ptesmumps ${esmumps_src} ${esmumps_headers})
-+add_library(ptesmumps ${esmumps_src} ${ptesmumps_headers})
+-  set_target_properties(ptesmumps PROPERTIES PUBLIC_HEADER "${GENERATED_INCLUDE_DIR}/esmumps.h")
  
- if(APPLE)
-   set_target_properties(ptesmumps PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
- endif(APPLE)
- 
--set_target_properties(ptesmumps PROPERTIES PUBLIC_HEADER "${GENERATED_INCLUDE_DIR}/esmumps.h")
-+set_target_properties(ptesmumps PROPERTIES PUBLIC_HEADER "${GENERATED_INCLUDE_DIR}/ptesmumps.h")
- 
- set_target_properties(ptesmumps PROPERTIES VERSION ${SCOTCH_VERSION_LONG}
-   SOVERSION ${SCOTCH_VERSION}.${SCOTCH_RELEASE})
+   set_target_properties(ptesmumps PROPERTIES VERSION ${SCOTCH_VERSION_LONG}
+     SOVERSION ${SCOTCH_VERSION}.${SCOTCH_RELEASE})
+-- 
+2.47.0
+
