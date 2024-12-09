@@ -14,7 +14,6 @@ source:
   patches:
     - 0001-put-metis-headers-in-include-scotch.patch
     - 0002-fix-ptesmumps.h.patch
-    - 0002-add-COMPONENT-labels-for-easier-split-installation.patch
     - 0003-win-fix-ssize_t.patch
     - 0004-win-fix-context.c.patch  # [win]
     - 0005-win-fix-flex.patch
