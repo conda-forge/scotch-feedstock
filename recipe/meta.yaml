@@ -24,7 +24,7 @@ source:
     - 0010-fix-idxsize.patch
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - name: libscotch
