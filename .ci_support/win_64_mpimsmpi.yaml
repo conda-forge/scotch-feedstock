@@ -13,9 +13,13 @@ cxx_compiler:
 fortran_compiler:
 - flang
 fortran_compiler_version:
-- '5'
+- '19'
 liblzma_devel:
 - '5'
+libptscotch:
+- 7.0.6
+libscotch:
+- 7.0.6
 mpi:
 - msmpi
 mpich:
@@ -23,7 +27,7 @@ mpich:
 openmpi:
 - '5'
 scotch:
-- 7.0.5
+- 7.0.6
 target_platform:
 - win-64
 zlib:
