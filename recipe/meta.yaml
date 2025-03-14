@@ -21,6 +21,7 @@ source:
     - 0007-win-disable-fortran-test.patch
     - 0008-win-fix-unistd-time-include.patch
     - 0009-use-external-dummysizes.patch
+    - fortify-source.patch
 
 build:
   number: 0
