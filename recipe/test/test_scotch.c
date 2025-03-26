@@ -12,7 +12,7 @@ int main() {
   printf("sizeof(SCOTCH_Num) = %lu\n", num_size);
   printf("sizeof(SCOTCH_Idx) = %lu\n", idx_size);
   // expect 32 bit
-  if (num_size != 4 && idx_size != 4) {
+  if (num_size != 8 && idx_size != 8) {
     return 1;
   }
   return 0;

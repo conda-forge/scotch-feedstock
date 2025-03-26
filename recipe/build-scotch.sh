@@ -31,6 +31,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
       -D CMAKE_INSTALL_PREFIX=$BUILD_PREFIX \
       -D CMAKE_INSTALL_LIBDIR=lib \
       -D ENABLE_TESTING=OFF \
+      -D INTSIZE=64 \
       -D SCOTCH_VERSION=$(echo ${PKG_VERSION} | cut -d. -f 1) \
       -D SCOTCH_RELEASE=$(echo ${PKG_VERSION} | cut -d. -f 2) \
       -D SCOTCH_PATCHLEVEL=$(echo ${PKG_VERSION} | cut -d. -f 3) \
@@ -58,6 +59,7 @@ cmake ${CMAKE_ARGS} \
   -D ENABLE_TESTING=OFF \
   -D BUILD_SHARED_LIBS=ON \
   -D BUILD_DUMMYSIZES=$BUILD_DUMMYSIZES \
+  -D INTSIZE=64 \
   -D LIBSCOTCHERR=scotcherr \
   -D LIBPTSCOTCHERR=ptscotcherr \
   -B build \
