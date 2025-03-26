@@ -9,6 +9,7 @@ if "%mpi%"=="impi-devel" (
   set "CMAKE_ARGS=%CMAKE_ARGS% -D MPI_C_LIBRARIES=impi"
 )
 
+set "CFLAGS=%CFLAGS% -DIDXSIZE64"
 
 cmake ^
   %CMAKE_ARGS% ^
@@ -27,7 +28,7 @@ cmake ^
   %SRC_DIR%
 if errorlevel 1 exit 1
 
-cmake --build ./build --config Release
+cmake --build ./build --config Release --verbose
 if errorlevel 1 exit 1
 cmake --install ./build --component=libscotch
 if errorlevel 1 exit 1
