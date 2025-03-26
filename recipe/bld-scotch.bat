@@ -9,7 +9,7 @@ if "%mpi%"=="impi-devel" (
   set "CMAKE_ARGS=%CMAKE_ARGS% -D MPI_C_LIBRARIES=impi"
 )
 
-set "CFLAGS=%CFLAGS% -DIDXSIZE64"
+set "CFLAGS=%CFLAGS% -Dabs=_abs64"
 
 cmake ^
   %CMAKE_ARGS% ^
