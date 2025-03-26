@@ -9,7 +9,7 @@ if "%mpi%"=="impi-devel" (
   set "CMAKE_ARGS=%CMAKE_ARGS% -D MPI_C_LIBRARIES=impi"
 )
 
-set "CFLAGS=%CFLAGS% -Dabs=_abs64"
+set "CFLAGS=%CFLAGS% -Dabs=(((a)>=0)?(a):-(a))"
 
 cmake ^
   %CMAKE_ARGS% ^
