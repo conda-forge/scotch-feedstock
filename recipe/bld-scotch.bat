@@ -9,8 +9,6 @@ if "%mpi%"=="impi-devel" (
   set "CMAKE_ARGS=%CMAKE_ARGS% -D MPI_C_LIBRARIES=impi"
 )
 
-set "CFLAGS=%CFLAGS% -Dabs=llabs"
-
 cmake ^
   %CMAKE_ARGS% ^
   -G "Ninja" ^
@@ -19,7 +17,7 @@ cmake ^
   -D ENABLE_TESTING=OFF ^
   -D BUILD_SHARED_LIBS=OFF ^
   -D CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON ^
-  -D INTSIZE=64 ^
+  -D INTSIZE=%intsize% ^
   -D THREADS_PTHREADS_INCLUDE_DIR="%LIBRARY_INC%" ^
   -D THREADS_PTHREADS_WIN32_LIBRARY:FILEPATH="%LIBRARY_LIB%\pthread.lib" ^
   -D LIBSCOTCHERR=scotcherr ^

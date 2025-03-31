@@ -3,7 +3,7 @@ set -xeuo pipefail
 
 python3 -c "import ctypes; ctypes.CDLL('${PREFIX}/lib/libscotch${SHLIB_EXT}')"
 
-$CC $CFLAGS $LDFLAGS test/test_scotch.c -o test_scotch -lscotch
+$CC $CFLAGS $LDFLAGS -DTEST_INTSIZE=${intsize} test/test_scotch.c -o test_scotch -lscotch
 ./test_scotch
 
 # build tests from repo
