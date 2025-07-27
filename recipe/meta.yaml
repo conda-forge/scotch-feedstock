@@ -1,5 +1,6 @@
 {% set name = "scotch" %}
 {% set version = "7.0.7" %}
+{% set build = 0 %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -22,22 +23,12 @@ source:
     - 0008-win-fix-unistd-time-include.patch
     - 0009-use-external-dummysizes.patch
     - fortify-source.patch
-    - debug.patch
 
 build:
-  number: 0
+  number: {{ build }}
+  string: int{{ intsize }}_h{{ PKG_HASH }}_{{ build }}
 
 outputs:
-  - name: scotch-intsize
-    version: {{ intsize }}
-    extra:
-      description: |
-        metapackage for selecting 64/32b scotch builds,
-        specifically the size of SCOTCH_Num and SCOTCH_Idx.
-    test:
-      commands:
-        - true  # [not win]
-
   - name: libscotch
     build:
       script:
@@ -45,7 +36,7 @@ outputs:
         - "%RECIPE_DIR%\\bld-scotch.bat"  # [win]
       run_exports:
         - {{ pin_subpackage('libscotch', max_pin='x.x.x') }}
-        - scotch-intsize =={{ intsize }}
+        - libscotch * int{{ intsize }}_*
       ignore_run_exports_from:
         - {{ mpi }}
     requirements:
@@ -68,7 +59,6 @@ outputs:
         - pthreads-win32  # [win]
       run:
         - pthreads-win32  # [win]
-        - scotch-intsize =={{ intsize }}
 
     test:
       script: test-libscotch.sh  # [unix]
@@ -106,7 +96,7 @@ outputs:
         - cmake --install ./build --component=libptscotch
       run_exports:
         - {{ pin_subpackage('libptscotch', max_pin='x.x.x') }}
-        - scotch-intsize =={{ intsize }}
+        - libptscotch * int{{ intsize }}_*
     requirements:
       build:
         - cmake
@@ -155,7 +145,7 @@ outputs:
       script: cmake --install ./build --component=scotch
       run_exports:
         - {{ pin_subpackage('libscotch', max_pin='x.x.x') }}
-        - scotch-intsize =={{ intsize }}
+        - libscotch * int{{ intsize }}_*
       force_use_keys:
         - mpi
     requirements:
@@ -180,7 +170,7 @@ outputs:
       script: cmake --install ./build --component=ptscotch
       run_exports:
         - {{ pin_subpackage('libptscotch', max_pin='x.x.x') }}
-        - scotch-intsize =={{ intsize }}
+        - libptscotch * int{{ intsize }}_*
       force_use_keys:
         - mpi
     requirements:
