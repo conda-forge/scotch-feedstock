@@ -26,11 +26,14 @@ source:
 
 build:
   number: {{ build }}
+  # top-level build.string doesn't have any effect on outputs...
+  # copy/paste to all outputs below
   string: int{{ intsize }}_h{{ PKG_HASH }}_{{ build }}
 
 outputs:
   - name: libscotch
     build:
+      string: int{{ intsize }}_h{{ PKG_HASH }}_{{ build }}
       script:
         - ${RECIPE_DIR}/build-scotch.sh  # [unix]
         - "%RECIPE_DIR%\\bld-scotch.bat"  # [win]
@@ -92,6 +95,7 @@ outputs:
 
   - name: libptscotch
     build:
+      string: int{{ intsize }}_h{{ PKG_HASH }}_{{ build }}
       script:
         - cmake --install ./build --component=libptscotch
       run_exports:
@@ -142,6 +146,7 @@ outputs:
 
   - name: scotch
     build:
+      string: int{{ intsize }}_h{{ PKG_HASH }}_{{ build }}
       script: cmake --install ./build --component=scotch
       run_exports:
         - {{ pin_subpackage('libscotch', max_pin='x.x.x') }}
@@ -167,6 +172,7 @@ outputs:
 
   - name: ptscotch
     build:
+      string: int{{ intsize }}_h{{ PKG_HASH }}_{{ build }}
       script: cmake --install ./build --component=ptscotch
       run_exports:
         - {{ pin_subpackage('libptscotch', max_pin='x.x.x') }}
