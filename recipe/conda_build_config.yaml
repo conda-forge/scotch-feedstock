@@ -3,3 +3,5 @@ mpi:
   - openmpi  # [not win]
   - msmpi    # [win]
   - impi-devel  # [win]
+intsize:
+  - "64"
