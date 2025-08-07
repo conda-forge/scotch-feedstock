@@ -52,8 +52,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
   export OPAL_PREFIX="$PREFIX"
 fi
 
-export CFLAGS="$CFLAGS -Dabs=llabs"
-
 cmake ${CMAKE_ARGS} \
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_SHARED_LINKER_FLAGS="$shared_flags" \
