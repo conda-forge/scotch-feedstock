@@ -4,5 +4,4 @@ mpi:
   - msmpi    # [win]
   - impi-devel  # [win]
 intsize:
-  - "64"  # [not win]
-  - "32"  # [win]
+  - "64"
