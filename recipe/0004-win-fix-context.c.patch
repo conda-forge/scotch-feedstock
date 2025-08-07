@@ -1,15 +1,31 @@
+From ef87dac38ee40df247c7f232a6c55dd6dfbd1d95 Mon Sep 17 00:00:00 2001
+From: Tobias Fischer <info@tobiasfischer.info>
+Date: Thu, 7 Aug 2025 15:09:39 -0700
+Subject: [PATCH 4/7] win fix context.c
+
+fix context offset on Windows
+
+origin: https://github.com/conda-forge/scotch-feedstock/pull/73
+author: Tobias Fischer
+---
+ src/libscotch/context.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
 diff --git a/src/libscotch/context.c b/src/libscotch/context.c
-index fbd8cbc..c081a26 100644
+index fbd8cbc..2531a7a 100644
 --- a/src/libscotch/context.c
 +++ b/src/libscotch/context.c
-@@ -88,7 +88,7 @@ int
+@@ -88,7 +88,8 @@ int
  contextOptionsInit (
  Context * const             contptr)
  {
--  return (contextValuesInit (contptr, &contextvaluesdat, sizeof (contextvaluesdat),
++  size_t offset = sizeof(contextvaluesdat.vinttab);
+   return (contextValuesInit (contptr, &contextvaluesdat, sizeof (contextvaluesdat),
 -                             CONTEXTOPTIONNUMNBR, (byte *) &contextvaluesdat.vinttab - (byte *) &contextvaluesdat,
 -                             CONTEXTOPTIONDBLNBR, (byte *) &contextvaluesdat.vdbltab - (byte *) &contextvaluesdat));
-+  size_t offset = sizeof(contextvaluesdat.vinttab);
-+  return contextValuesInit(contptr, &contextvaluesdat, sizeof(contextvaluesdat), CONTEXTOPTIONNUMNBR,
-+                           offset, CONTEXTOPTIONDBLNBR, offset + sizeof(contextvaluesdat.vinttab));
++                             CONTEXTOPTIONNUMNBR, offset,
++                             CONTEXTOPTIONDBLNBR, offset + sizeof (contextvaluesdat.vinttab));
  }
+-- 
+2.49.0
+

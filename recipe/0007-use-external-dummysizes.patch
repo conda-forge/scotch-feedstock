@@ -1,0 +1,57 @@
+From f4d40e723224c60ed94dc30477de9fc931c23f93 Mon Sep 17 00:00:00 2001
+From: Tobias Fischer <info@tobiasfischer.info>
+Date: Thu, 7 Aug 2025 15:18:08 -0700
+Subject: [PATCH 7/7] use external dummysizes
+
+for cross compiling
+
+origin: https://github.com/conda-forge/scotch-feedstock/pull/70
+author: Tobias Fischer
+---
+ CMakeLists.txt               | 3 +++
+ src/libscotch/CMakeLists.txt | 8 ++++++++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index be763af..1f09da3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -88,6 +88,9 @@ option(THREADS "Use multi-threading in Scotch and PT-Scotch" ON)
+ # Use MPI with threads
+ option(MPI_THREAD_MULTIPLE "Use multi-threading with MPI in PT-Scotch" ON)
+ 
++# Build Dummysizes
++option(BUILD_DUMMYSIZES "Build Dummysizes" ON)
++
+ # Build PT-Scotch
+ option(BUILD_PTSCOTCH "Build PT-Scotch" ON)
+ 
+diff --git a/src/libscotch/CMakeLists.txt b/src/libscotch/CMakeLists.txt
+index 37c1e84..e633006 100644
+--- a/src/libscotch/CMakeLists.txt
++++ b/src/libscotch/CMakeLists.txt
+@@ -49,6 +49,7 @@
+ #  dummysizes  #
+ ################
+ 
++if(BUILD_DUMMYSIZES)
+ add_executable(dummysizes dummysizes.c)
+ set_target_properties(dummysizes PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+ if(BUILD_PTSCOTCH)
+@@ -64,6 +65,13 @@ if(BUILD_PTSCOTCH)
+     COMPILE_FLAGS -DSCOTCH_PTSCOTCH)
+ endif()
+ 
++else() # BUILD_DUMMYSIZES
++  add_executable(dummysizes IMPORTED GLOBAL)
++  set_property(TARGET dummysizes PROPERTY IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/src/dummysizes/build-host/dummysizes")
++  add_executable(ptdummysizes IMPORTED GLOBAL)
++  set_property(TARGET ptdummysizes PROPERTY IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/src/dummysizes/build-host/ptdummysizes")
++endif() # BUILD_DUMMYSIZES
++
+ ##############
+ #  scotch.h  #
+ ##############
+-- 
+2.49.0
+

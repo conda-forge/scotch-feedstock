@@ -19,10 +19,7 @@ source:
     - 0004-win-fix-context.c.patch  # [win]
     - 0005-win-fix-flex.patch
     - 0006-win-fix-graph-match-scan.patch
-    - 0007-win-disable-fortran-test.patch
-    - 0008-win-fix-unistd-time-include.patch
-    - 0009-use-external-dummysizes.patch
-    - fortify-source.patch
+    - 0007-use-external-dummysizes.patch
 
 build:
   number: {{ build }}

@@ -1,5 +1,16 @@
+From 0ad83228d80f1c1100e9b10515967eb2312a4e2a Mon Sep 17 00:00:00 2001
+From: Tobias Fischer <info@tobiasfischer.info>
+Date: Thu, 7 Aug 2025 14:59:38 -0700
+Subject: [PATCH 3/7] win fix ssize_t
+
+fix missing ssize_t on Windows
+---
+ src/libscotch/common_file_compress.c   | 4 ++++
+ src/libscotch/common_file_decompress.c | 4 ++++
+ 2 files changed, 8 insertions(+)
+
 diff --git a/src/libscotch/common_file_compress.c b/src/libscotch/common_file_compress.c
-index e1ccff5..e8e36ad 100644
+index 5255cdc..83d6955 100644
 --- a/src/libscotch/common_file_compress.c
 +++ b/src/libscotch/common_file_compress.c
 @@ -69,6 +69,10 @@
@@ -14,7 +25,7 @@ index e1ccff5..e8e36ad 100644
  **  The static definitions.
  */
 diff --git a/src/libscotch/common_file_decompress.c b/src/libscotch/common_file_decompress.c
-index 648b6f0..9188eb0 100644
+index 6e80222..4c0231f 100644
 --- a/src/libscotch/common_file_decompress.c
 +++ b/src/libscotch/common_file_decompress.c
 @@ -69,6 +69,10 @@
@@ -28,3 +39,6 @@ index 648b6f0..9188eb0 100644
  /*
  **  The static definitions.
  */
+-- 
+2.49.0
+

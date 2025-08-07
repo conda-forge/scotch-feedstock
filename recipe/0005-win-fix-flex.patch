@@ -1,10 +1,23 @@
+From 5476ceaa299b6abd3e49d32ce844e3500963fbf7 Mon Sep 17 00:00:00 2001
+From: Tobias Fischer <info@tobiasfischer.info>
+Date: Thu, 7 Aug 2025 15:10:57 -0700
+Subject: [PATCH 5/7] win fix flex
+
+add --wincompat arg to flex
+
+origin: https://github.com/conda-forge/scotch-feedstock/pull/73
+author: Tobias Fischer
+---
+ src/libscotch/CMakeLists.txt | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
 diff --git a/src/libscotch/CMakeLists.txt b/src/libscotch/CMakeLists.txt
-index e3b0cb9..77dc24c 100644
+index 4946888..37c1e84 100644
 --- a/src/libscotch/CMakeLists.txt
 +++ b/src/libscotch/CMakeLists.txt
-@@ -140,9 +140,15 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/parser_ll.l
-   COMMENT "Copy parser_ll.l to CMake binary directory")
- add_custom_target(parser_ll_l DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/parser_ll.l)
+@@ -125,10 +125,16 @@ add_custom_target(parser_yy_c DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/parser_yy.c ${
+ #  parser_ll.c  #
+ #################
  
 +if(WIN32)
 +  set(FLEX_FLAG "--wincompat")
@@ -14,8 +27,12 @@ index e3b0cb9..77dc24c 100644
 +
  # Generate parser_ll.c using Flex
  add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/parser_ll.c
--  COMMAND ${FLEX_EXECUTABLE} "-Pscotchyy${SCOTCH_NAME_SUFFIX}"  "-oparser_ll.c" ${CMAKE_CURRENT_SOURCE_DIR}/parser_ll.l
-+  COMMAND ${FLEX_EXECUTABLE} "-Pscotchyy${SCOTCH_NAME_SUFFIX}" "${FLEX_FLAG}" "-oparser_ll.c" ${CMAKE_CURRENT_SOURCE_DIR}/parser_ll.l
-   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/parser_ll.l module.h common.h parser.h parser_ll.h parser_ly.h
-   COMMENT "Generate parser_ll.c using Flex")
- add_custom_target(parser_ll_c DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/parser_ll.c)
+   ${CMAKE_CURRENT_BINARY_DIR}/parser_lh.h
+-  COMMAND ${FLEX_EXECUTABLE} "-Pscotchyy${SCOTCH_NAME_SUFFIX}"  "-oparser_ll.c"
++  COMMAND ${FLEX_EXECUTABLE} "-Pscotchyy${SCOTCH_NAME_SUFFIX}" "${FLEX_FLAG}" "-oparser_ll.c"
+   "--header-file=parser_lh.h"
+   ${CMAKE_CURRENT_SOURCE_DIR}/parser_ll.l
+   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/parser_ll.l
+-- 
+2.49.0
+
