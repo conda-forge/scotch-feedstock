@@ -65,6 +65,8 @@ outputs:
       files:
         - test/test_scotch.c
       source_files:
+        - src/libscotch/common.h
+        - src/libscotch/module.h
         - src/check/test_scotch_graph_color.c
         - src/check/data/m4x4.grf
       requires:
