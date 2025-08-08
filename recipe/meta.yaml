@@ -20,6 +20,7 @@ source:
     - 0005-win-fix-flex.patch
     - 0006-win-fix-graph-match-scan.patch
     - 0007-use-external-dummysizes.patch
+    - 0008-flex-circular-dependency.patch
 
 build:
   number: {{ build }}
