@@ -22,9 +22,9 @@ index fbd8cbc..2531a7a 100644
 +  size_t offset = sizeof(contextvaluesdat.vinttab);
    return (contextValuesInit (contptr, &contextvaluesdat, sizeof (contextvaluesdat),
 -                             CONTEXTOPTIONNUMNBR, (byte *) &contextvaluesdat.vinttab - (byte *) &contextvaluesdat,
--                             CONTEXTOPTIONDBLNBR, (byte *) &contextvaluesdat.vdbltab - (byte *) &contextvaluesdat));
 +                             CONTEXTOPTIONNUMNBR, offset,
-+                             CONTEXTOPTIONDBLNBR, offset + sizeof (contextvaluesdat.vinttab));
+-                             CONTEXTOPTIONDBLNBR, (byte *) &contextvaluesdat.vdbltab - (byte *) &contextvaluesdat));
++                             CONTEXTOPTIONDBLNBR, offset + sizeof (contextvaluesdat.vinttab)));
  }
 -- 
 2.49.0
