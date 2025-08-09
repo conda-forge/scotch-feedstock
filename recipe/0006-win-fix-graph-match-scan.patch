@@ -1,5 +1,16 @@
+From 245b0678d0b8c68080fbce820a3d27309664b973 Mon Sep 17 00:00:00 2001
+From: Tobias Fischer <info@tobiasfischer.info>
+Date: Thu, 7 Aug 2025 15:25:47 -0700
+Subject: [PATCH 6/7] win fix graph match scan
+
+origin: https://github.com/conda-forge/scotch-feedstock/pull/73
+author: Tobias Fischer
+---
+ src/libscotch/graph_match_scan.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
 diff --git a/src/libscotch/graph_match_scan.c b/src/libscotch/graph_match_scan.c
-index ec13821..23d20af 100644
+index ec13821..58465c7 100644
 --- a/src/libscotch/graph_match_scan.c
 +++ b/src/libscotch/graph_match_scan.c
 @@ -173,6 +173,7 @@ GraphCoarsenThread * restrict const thrdptr)
@@ -30,3 +41,6 @@ index ec13821..23d20af 100644
  #else /* GRAPHMATCHSCANSEQ */
      finematetax[finevertbst] = finevertnum;       /* Match other vertex with us */
  #endif /* GRAPHMATCHSCANSEQ */
+-- 
+2.49.0
+
