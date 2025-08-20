@@ -8,11 +8,17 @@ jobs:
     vmImage: windows-2022
   strategy:
     matrix:
-      win_64_mpiimpi-devel:
-        CONFIG: win_64_mpiimpi-devel
+      win_64_intsize32mpiimpi-devel:
+        CONFIG: win_64_intsize32mpiimpi-devel
         UPLOAD_PACKAGES: 'True'
-      win_64_mpimsmpi:
-        CONFIG: win_64_mpimsmpi
+      win_64_intsize32mpimsmpi:
+        CONFIG: win_64_intsize32mpimsmpi
+        UPLOAD_PACKAGES: 'True'
+      win_64_intsize64mpiimpi-devel:
+        CONFIG: win_64_intsize64mpiimpi-devel
+        UPLOAD_PACKAGES: 'True'
+      win_64_intsize64mpimsmpi:
+        CONFIG: win_64_intsize64mpimsmpi
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:
