@@ -1,6 +1,6 @@
 {% set name = "scotch" %}
-{% set version = "7.0.8" %}
-{% set build = 2 %}
+{% set version = "7.0.9" %}
+{% set build = 0 %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -11,7 +11,7 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
-  sha256: 21f48ac85c7991a5eb5fae9232dd68584556ccc500f85e2ebd6b5b275617e11a
+  sha256: 6d50c3f66e3e0e2058bce45ed9eee171fd8d6c01123c802a98544948a1c3d5d1
   patches:
     - 0001-put-metis-headers-in-include-scotch.patch
     - 0002-fix-ptesmumps.h.patch
