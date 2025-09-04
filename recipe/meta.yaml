@@ -17,10 +17,8 @@ source:
     - 0002-fix-ptesmumps.h.patch
     - 0003-win-fix-ssize_t.patch
     - 0004-win-fix-context.c.patch  # [win]
-    - 0005-win-fix-flex.patch
+    - 0005-use-external-dummysizes.patch
     - 0006-win-fix-graph-match-scan.patch
-    - 0007-use-external-dummysizes.patch
-    - 0008-flex-circular-dependency.patch
 
 build:
   number: {{ build }}
