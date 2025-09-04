@@ -1,7 +1,7 @@
-From 3a0910cf97a6ac333c56b5fbf6cc914d134d242f Mon Sep 17 00:00:00 2001
+From 45f26dcef1fd94106fd7e322cae4defc8f83d2c6 Mon Sep 17 00:00:00 2001
 From: Min RK <benjaminrk@gmail.com>
 Date: Mon, 9 Dec 2024 12:46:55 +0100
-Subject: [PATCH 2/7] fix-ptesmumps.h
+Subject: [PATCH 2/6] fix-ptesmumps.h
 
 Avoid installing esmumps.h twice, with both scotch and ptscotch
 ---

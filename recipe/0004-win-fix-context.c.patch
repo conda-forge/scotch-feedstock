@@ -1,12 +1,12 @@
-From ef87dac38ee40df247c7f232a6c55dd6dfbd1d95 Mon Sep 17 00:00:00 2001
-From: Tobias Fischer <info@tobiasfischer.info>
+From 1f27bf18f06ccd8d77d7e6af4d785431e864a0da Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
 Date: Thu, 7 Aug 2025 15:09:39 -0700
-Subject: [PATCH 4/7] win fix context.c
+Subject: [PATCH 4/6] win fix context.c
 
 fix context offset on Windows
 
-origin: https://github.com/conda-forge/scotch-feedstock/pull/73
-author: Tobias Fischer
+origin: conda-forge PR 73
+https://github.com/conda-forge/scotch-feedstock/pull/73
 ---
  src/libscotch/context.c | 5 +++--
  1 file changed, 3 insertions(+), 2 deletions(-)
@@ -22,9 +22,9 @@ index fbd8cbc..2531a7a 100644
 +  size_t offset = sizeof(contextvaluesdat.vinttab);
    return (contextValuesInit (contptr, &contextvaluesdat, sizeof (contextvaluesdat),
 -                             CONTEXTOPTIONNUMNBR, (byte *) &contextvaluesdat.vinttab - (byte *) &contextvaluesdat,
-+                             CONTEXTOPTIONNUMNBR, offset,
 -                             CONTEXTOPTIONDBLNBR, (byte *) &contextvaluesdat.vdbltab - (byte *) &contextvaluesdat));
-+                             CONTEXTOPTIONDBLNBR, offset + sizeof (contextvaluesdat.vinttab)));
++                             CONTEXTOPTIONNUMNBR, offset,
++                             CONTEXTOPTIONDBLNBR, offset + sizeof (contextvaluesdat.vinttab));
  }
 -- 
 2.49.0

@@ -1,7 +1,7 @@
-From 245b0678d0b8c68080fbce820a3d27309664b973 Mon Sep 17 00:00:00 2001
-From: Tobias Fischer <info@tobiasfischer.info>
+From 7c616b8045b3016749e4a88fa700884ce6bb714f Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
 Date: Thu, 7 Aug 2025 15:25:47 -0700
-Subject: [PATCH 6/7] win fix graph match scan
+Subject: [PATCH 6/6] win fix graph match scan
 
 origin: https://github.com/conda-forge/scotch-feedstock/pull/73
 author: Tobias Fischer
