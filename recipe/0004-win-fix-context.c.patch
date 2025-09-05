@@ -24,7 +24,7 @@ index fbd8cbc..2531a7a 100644
 -                             CONTEXTOPTIONNUMNBR, (byte *) &contextvaluesdat.vinttab - (byte *) &contextvaluesdat,
 -                             CONTEXTOPTIONDBLNBR, (byte *) &contextvaluesdat.vdbltab - (byte *) &contextvaluesdat));
 +                             CONTEXTOPTIONNUMNBR, offset,
-+                             CONTEXTOPTIONDBLNBR, offset + sizeof (contextvaluesdat.vinttab));
++                             CONTEXTOPTIONDBLNBR, offset + sizeof (contextvaluesdat.vinttab)));
  }
 -- 
 2.49.0
