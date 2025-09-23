@@ -29,9 +29,9 @@ intsize:
 liblzma_devel:
 - '5'
 libptscotch:
-- 7.0.6
+- 7.0.8
 libscotch:
-- 7.0.6
+- 7.0.8
 mpi:
 - openmpi
 mpich:
