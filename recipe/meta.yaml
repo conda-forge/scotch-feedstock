@@ -43,7 +43,7 @@ outputs:
         - {{ compiler('c') }}
         - {{ stdlib("c") }}
         - {{ compiler('fortran') }}
-        - cmake 4.0.*
+        - cmake
         - make
         - ninja         # [win]
         - {{ mpi }}     # [build_platform != target_platform]
