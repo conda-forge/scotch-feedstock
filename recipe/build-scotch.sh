@@ -44,6 +44,13 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
 
   # Set flag to not build dummysizes in main build
   BUILD_DUMMYSIZES=OFF
+  # Cross-compile run results
+  export CMAKE_ARGS="${CMAKE_ARGS} \
+    -DMPI_RUN_RESULT_C_libver_mpi_normal:INTERNAL=1 \
+    -DMPI_RUN_RESULT_C_libver_mpi_normal__TRYRUN_OUTPUT:STRING=\"\" \
+    -DMPI_RUN_RESULT_Fortran_libver_mpi_F08_MODULE:INTERNAL=1 \
+    -DMPI_RUN_RESULT_Fortran_libver_mpi_F08_MODULE__TRYRUN_OUTPUT:STRING=\"\" \
+  "
 else
   BUILD_DUMMYSIZES=ON
 fi
