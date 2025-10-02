@@ -1,4 +1,4 @@
-From b8e3b526d639cb10f57b4b14297c95efc05f0e61 Mon Sep 17 00:00:00 2001
+From 315f99ba9db1b99474507430b94205d1072d03d2 Mon Sep 17 00:00:00 2001
 From: Min RK <benjaminrk@gmail.com>
 Date: Thu, 7 Aug 2025 15:18:08 -0700
 Subject: [PATCH 5/6] use external dummysizes
@@ -13,7 +13,7 @@ author: Tobias Fischer
  2 files changed, 11 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 60e2d4b..e21a5d6 100644
+index ee8e01f..88a0fa8 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -92,6 +92,9 @@ option(THREADS "Use multi-threading in Scotch and PT-Scotch" ON)
@@ -27,7 +27,7 @@ index 60e2d4b..e21a5d6 100644
  option(BUILD_PTSCOTCH "Build PT-Scotch" ON)
  
 diff --git a/src/libscotch/CMakeLists.txt b/src/libscotch/CMakeLists.txt
-index 8c92534..889ee84 100644
+index 4137e2c..2b095fa 100644
 --- a/src/libscotch/CMakeLists.txt
 +++ b/src/libscotch/CMakeLists.txt
 @@ -49,6 +49,7 @@

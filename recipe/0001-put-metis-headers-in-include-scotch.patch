@@ -1,4 +1,4 @@
-From aa4f0455eadbf3f9bf34d3c39e6b7d80a807d1f1 Mon Sep 17 00:00:00 2001
+From 77933145043f1e3957004267162ba6e28d5ae5da Mon Sep 17 00:00:00 2001
 From: Min RK <benjaminrk@gmail.com>
 Date: Fri, 20 May 2022 20:32:45 +0200
 Subject: [PATCH 1/6] put metis headers in include/scotch
@@ -8,10 +8,10 @@ Subject: [PATCH 1/6] put metis headers in include/scotch
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/libscotchmetis/CMakeLists.txt b/src/libscotchmetis/CMakeLists.txt
-index 16370cd..2c5a118 100644
+index 3b640aa..63a626e 100644
 --- a/src/libscotchmetis/CMakeLists.txt
 +++ b/src/libscotchmetis/CMakeLists.txt
-@@ -129,7 +129,7 @@ foreach(version 3 5)
+@@ -130,7 +130,7 @@ foreach(version 3 5)
        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -20,7 +20,7 @@ index 16370cd..2c5a118 100644
    else()
      install(TARGETS scotchmetisv${version}
        COMPONENT libscotch
-@@ -212,7 +212,7 @@ if(BUILD_PTSCOTCH)
+@@ -213,7 +213,7 @@ if(BUILD_PTSCOTCH)
          RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
          ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
          LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
