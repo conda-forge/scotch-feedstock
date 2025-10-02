@@ -32,6 +32,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
       -D CMAKE_INSTALL_LIBDIR=lib \
       -D ENABLE_TESTS=OFF \
       -D MPI_DETERMINE_LIBRARY_VERSION=OFF \
+      -D MPI_DETERMINE_Fortran_CAPABILITIES=OFF \
       -D INTSIZE=${intsize} \
       -D SCOTCH_VERSION=$(echo ${PKG_VERSION} | cut -d. -f 1) \
       -D SCOTCH_RELEASE=$(echo ${PKG_VERSION} | cut -d. -f 2) \
@@ -43,8 +44,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
 
   # Set flag to not build dummysizes in main build
   BUILD_DUMMYSIZES=OFF
-  # Cross-compile run results
-  export CMAKE_ARGS="${CMAKE_ARGS} -DMPI_RUN_RESULT_C_libver_mpi_normal:INTERNAL=1 -DMPI_RUN_RESULT_C_libver_mpi_normal__TRYRUN_OUTPUT:STRING="""
 else
   BUILD_DUMMYSIZES=ON
 fi
@@ -64,6 +63,7 @@ cmake ${CMAKE_ARGS} \
   -D LIBSCOTCHERR=scotcherr \
   -D LIBPTSCOTCHERR=ptscotcherr \
   -D MPI_DETERMINE_LIBRARY_VERSION=OFF \
+  -D MPI_DETERMINE_Fortran_CAPABILITIES=OFF \
   -B build \
   .
 
