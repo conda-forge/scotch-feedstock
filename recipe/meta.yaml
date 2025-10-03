@@ -1,6 +1,6 @@
 {% set name = "scotch" %}
-{% set version = "7.0.8" %}
-{% set build = 2 %}
+{% set version = "7.0.10" %}
+{% set build = 0 %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -11,16 +11,14 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
-  sha256: 21f48ac85c7991a5eb5fae9232dd68584556ccc500f85e2ebd6b5b275617e11a
+  sha256: 8327725a08cdd4fc7575e291251883b4f93f75b07a54bc58f89f50dcbba7b244
   patches:
     - 0001-put-metis-headers-in-include-scotch.patch
     - 0002-fix-ptesmumps.h.patch
     - 0003-win-fix-ssize_t.patch
     - 0004-win-fix-context.c.patch  # [win]
-    - 0005-win-fix-flex.patch
+    - 0005-use-external-dummysizes.patch
     - 0006-win-fix-graph-match-scan.patch
-    - 0007-use-external-dummysizes.patch
-    - 0008-flex-circular-dependency.patch
 
 build:
   number: {{ build }}
@@ -72,6 +70,7 @@ outputs:
         - src/check/data/m4x4.grf
       requires:
         - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
         - python 3.12
       commands:
 {% for lib in ['scotch', 'scotcherr', 'scotcherrexit', 'esmumps'] %}

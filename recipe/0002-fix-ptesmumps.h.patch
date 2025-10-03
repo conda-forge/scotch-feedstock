@@ -1,7 +1,7 @@
-From 3a0910cf97a6ac333c56b5fbf6cc914d134d242f Mon Sep 17 00:00:00 2001
+From 6e9539c74939b682a37e9766fee02dda51c7feb1 Mon Sep 17 00:00:00 2001
 From: Min RK <benjaminrk@gmail.com>
 Date: Mon, 9 Dec 2024 12:46:55 +0100
-Subject: [PATCH 2/7] fix-ptesmumps.h
+Subject: [PATCH 2/6] fix-ptesmumps.h
 
 Avoid installing esmumps.h twice, with both scotch and ptscotch
 ---
@@ -9,10 +9,10 @@ Avoid installing esmumps.h twice, with both scotch and ptscotch
  1 file changed, 1 deletion(-)
 
 diff --git a/src/esmumps/CMakeLists.txt b/src/esmumps/CMakeLists.txt
-index 170d0da..12ab2de 100644
+index 293644c..d56cc69 100644
 --- a/src/esmumps/CMakeLists.txt
 +++ b/src/esmumps/CMakeLists.txt
-@@ -150,7 +150,6 @@ if(BUILD_PTSCOTCH)
+@@ -154,7 +154,6 @@ if(BUILD_PTSCOTCH)
      set_target_properties(ptesmumps PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
    endif()
  
