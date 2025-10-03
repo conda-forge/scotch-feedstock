@@ -70,6 +70,7 @@ outputs:
         - src/check/data/m4x4.grf
       requires:
         - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
         - python 3.12
       commands:
 {% for lib in ['scotch', 'scotcherr', 'scotcherrexit', 'esmumps'] %}
