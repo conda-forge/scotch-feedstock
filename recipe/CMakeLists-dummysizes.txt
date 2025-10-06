@@ -29,6 +29,29 @@ set(GENERATED_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/include)
 file(MAKE_DIRECTORY ${GENERATED_INCLUDE_DIR})
 
 option(BUILD_PTSCOTCH "Build PT-Scotch" ON)
+option(THREADS "Use multi-threading in Scotch and PT-Scotch" ON)
+
+# for accuracy, this cmakefile must replicate _all_ definitions
+# from the real cmakelists that might affect struct sizes
+
+# Thread support in Scotch
+if(THREADS)
+  find_package(Threads)
+  if(Threads_FOUND)
+    add_definitions(-DCOMMON_PTHREAD -DSCOTCH_PTHREAD)
+    # assume mpi thread multiple is okay,
+    # which is true for conda-forge providers
+    add_definitions(-DSCOTCH_PTHREAD_MPI)
+  endif()
+  if(CMAKE_USE_WIN32_THREADS_INIT)
+    add_definitions(-DCOMMON_THREAD_WIN32)
+  endif()
+  include(CheckPthreadAffinity)
+  if(PTHREAD_AFFINITY_LINUX_OK)
+    add_definitions(-DCOMMON_PTHREAD_AFFINITY_LINUX)
+  endif()
+endif()
+
 
 add_executable(dummysizes ../libscotch/dummysizes.c)
 set_target_properties(dummysizes PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
