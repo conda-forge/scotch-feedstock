@@ -24,6 +24,20 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
 
     # Unset them as we're ok with builds that are either slow or non-portable
     unset CFLAGS
+    
+    case "$target_platform" in
+      # compute this with native sizeof(pthread_mutex_t) on each platform
+      # ordering/partitioning may crash if these are wrong
+      linux-aarch64)
+        mutex_size=48
+        ;;
+      linux-ppc64le)
+        mutex_size=40
+        ;;
+      osx-arm64)
+        mutex_size=64
+        ;;
+    esac
 
     cmake .. \
       -D CMAKE_BUILD_TYPE=Release \
@@ -33,13 +47,14 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
       -D ENABLE_TESTS=OFF \
       -D MPI_DETERMINE_LIBRARY_VERSION=OFF \
       -D MPI_DETERMINE_Fortran_CAPABILITIES=OFF \
+      -D PTHREAD_MUTEX_SIZE=${mutex_size} \
       -D INTSIZE=${intsize} \
       -D SCOTCH_VERSION=$(echo ${PKG_VERSION} | cut -d. -f 1) \
       -D SCOTCH_RELEASE=$(echo ${PKG_VERSION} | cut -d. -f 2) \
       -D SCOTCH_PATCHLEVEL=$(echo ${PKG_VERSION} | cut -d. -f 3) \
       -D CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP=True
 
-    cmake --build . --parallel ${CPU_COUNT} --config Release
+    cmake --build . --parallel ${CPU_COUNT:-1} --verbose
   )
 
   # Set flag to not build dummysizes in main build
@@ -53,10 +68,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   "
 else
   BUILD_DUMMYSIZES=ON
-fi
-
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" && "${mpi}" == "openmpi" ]]; then
-  export OPAL_PREFIX="$PREFIX"
 fi
 
 cmake ${CMAKE_ARGS} \
@@ -74,8 +85,9 @@ cmake ${CMAKE_ARGS} \
   -B build \
   .
 
-cmake --build ./build --parallel ${CPU_COUNT} --config Release
+cmake --build ./build --parallel ${CPU_COUNT}
 cmake --install ./build --component=libscotch
 
 # check SCOTCH_VERSION fields
+cat $PREFIX/include/scotch.h
 grep VERSION $PREFIX/include/scotch.h

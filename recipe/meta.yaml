@@ -19,7 +19,7 @@ source:
     - 0004-win-fix-context.c.patch  # [win]
     - 0005-use-external-dummysizes.patch
     - 0006-win-fix-graph-match-scan.patch
-
+    - 0007-allow-overriding-pthread_mutex_t-size.patch
 build:
   number: {{ build }}
   # top-level build.string doesn't have any effect on outputs...
