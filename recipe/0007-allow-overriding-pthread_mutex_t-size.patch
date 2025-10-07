@@ -1,0 +1,97 @@
+From d583e7bc44bff1c43001e55531253f6fac0e250e Mon Sep 17 00:00:00 2001
+From: Min RK <benjaminrk@gmail.com>
+Date: Mon, 6 Oct 2025 20:40:54 -0700
+Subject: [PATCH 7/7] allow overriding pthread_mutex_t size
+
+for cross compilation
+---
+ src/libscotch/dmapping.h       | 4 ++++
+ src/libscotch/dorder.h         | 4 ++++
+ src/libscotch/mapping.h        | 4 ++++
+ src/libscotch/order.h          | 4 ++++
+ src/libscotch/wgraph_part_rb.h | 4 ++++
+ 5 files changed, 20 insertions(+)
+
+diff --git a/src/libscotch/dmapping.h b/src/libscotch/dmapping.h
+index 692d178..c3454c9 100644
+--- a/src/libscotch/dmapping.h
++++ b/src/libscotch/dmapping.h
+@@ -80,7 +80,11 @@ typedef struct Dmapping_ {
+   Gnum                      vertlocnbr;           /*+ Number of local vertices in mapping +*/
+   Arch                      archdat;              /*+ Architecture data                   +*/
+ #ifdef SCOTCH_PTHREAD
++#ifdef PTHREAD_MUTEX_SIZE
++  char _mutedat_space[PTHREAD_MUTEX_SIZE];
++#else
+   pthread_mutex_t           mutelocdat;           /*+ Local mutex for updates             +*/
++#endif /* PTHREAD_MUTEX_SIZE */
+ #endif /* SCOTCH_PTHREAD */
+ } Dmapping;
+ 
+diff --git a/src/libscotch/dorder.h b/src/libscotch/dorder.h
+index d519dc2..3d3cb86 100644
+--- a/src/libscotch/dorder.h
++++ b/src/libscotch/dorder.h
+@@ -157,7 +157,11 @@ typedef struct Dorder_ {
+   MPI_Comm                  proccomm;             /*+ Ordering global communicator                                                   +*/
+   int                       proclocnum;           /*+ Rank of this process in the communicator                                       +*/
+ #ifdef SCOTCH_PTHREAD
++#ifdef PTHREAD_MUTEX_SIZE
++  char _mutedat_space[PTHREAD_MUTEX_SIZE];
++#else
+   pthread_mutex_t           mutelocdat;           /*+ Local mutex for counter and link updates                                       +*/
++#endif /* PTHREAD_MUTEX_SIZE */
+ #endif /* SCOTCH_PTHREAD */
+ } Dorder;
+ 
+diff --git a/src/libscotch/mapping.h b/src/libscotch/mapping.h
+index fc7861c..f19312e 100644
+--- a/src/libscotch/mapping.h
++++ b/src/libscotch/mapping.h
+@@ -115,7 +115,11 @@ typedef struct Mapping_ {
+   Anum                      domnnbr;              /*+ Current number of domains  +*/
+   Anum                      domnmax;              /*+ Maximum number of domains  +*/
+ #ifdef SCOTCH_PTHREAD
++#ifdef PTHREAD_MUTEX_SIZE
++  char _mutedat_space[PTHREAD_MUTEX_SIZE];
++#else
+   pthread_mutex_t           mutedat;              /*+ Local mutex for updates    +*/
++#endif /* PTHREAD_MUTEX_SIZE */
+ #endif /* SCOTCH_PTHREAD */
+ } Mapping;
+ 
+diff --git a/src/libscotch/order.h b/src/libscotch/order.h
+index acbbd6e..bfcbcb9 100644
+--- a/src/libscotch/order.h
++++ b/src/libscotch/order.h
+@@ -135,7 +135,11 @@ typedef struct Order_ {
+   OrderCblk                 rootdat;              /*+ Root of column block tree                +*/
+   Gnum *                    peritab;              /*+ Inverse permutation array [vnodnbr]      +*/
+ #ifdef SCOTCH_PTHREAD
++#ifdef PTHREAD_MUTEX_SIZE
++  char _mutedat_space[PTHREAD_MUTEX_SIZE];
++#else
+   pthread_mutex_t           mutedat;              /*+ Local mutex for counter and link updates +*/
++#endif /* PTHREAD_MUTEX_SIZE */
+ #endif /* SCOTCH_PTHREAD */
+ } Order;
+ 
+diff --git a/src/libscotch/wgraph_part_rb.h b/src/libscotch/wgraph_part_rb.h
+index 806e463..a528977 100644
+--- a/src/libscotch/wgraph_part_rb.h
++++ b/src/libscotch/wgraph_part_rb.h
+@@ -73,7 +73,11 @@ typedef struct WgraphPartRbData_ {
+   Gnum                      fronnbr;              /*+ Current number of frontier vertices +*/
+   Strat *                   straptr;              /*+ Bipartitioning strategy used        +*/
+ #ifdef SCOTCH_PTHREAD
++#ifdef PTHREAD_MUTEX_SIZE
++  char _mutedat_space[PTHREAD_MUTEX_SIZE];
++#else
+   pthread_mutex_t           mutedat;              /*+ Mutex for frontier updates          +*/
++#endif /* PTHREAD_MUTEX_SIZE */
+ #endif /* SCOTCH_PTHREAD */
+ } WgraphPartRbData;
+ 
+-- 
+2.49.0
+

@@ -1,6 +1,6 @@
 {% set name = "scotch" %}
 {% set version = "7.0.10" %}
-{% set build = 0 %}
+{% set build = 1 %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -19,7 +19,7 @@ source:
     - 0004-win-fix-context.c.patch  # [win]
     - 0005-use-external-dummysizes.patch
     - 0006-win-fix-graph-match-scan.patch
-
+    - 0007-allow-overriding-pthread_mutex_t-size.patch
 build:
   number: {{ build }}
   # top-level build.string doesn't have any effect on outputs...
@@ -73,6 +73,7 @@ outputs:
         - {{ compiler('cxx') }}
         - python 3.12
       commands:
+        - cat $PREFIX/include/scotch.h  # [unix]
 {% for lib in ['scotch', 'scotcherr', 'scotcherrexit', 'esmumps'] %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"                             # [unix]
         - if exist %PREFIX%\\Library\\lib\\{{ lib }}.lib (exit 0) else (exit 1)        # [win]
@@ -122,6 +123,7 @@ outputs:
       source_files:
         - src/check/data/m4x4.grf
       commands:
+        - cat $PREFIX/include/ptscotch.h  # [unix]
 {% for lib in ['ptscotch', 'ptscotcherr', 'ptscotcherrexit', 'ptesmumps'] %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"                                 # [unix]
         - if exist %PREFIX%\\Library\\lib\\{{ lib }}.lib (exit 0) else (exit 1)            # [win]
@@ -168,6 +170,14 @@ outputs:
         - gord -V
         - gotst -V
         - gscat -V
+        - ls -la 
+        - mord test/cube_8.msh
+        - gord test/small1.grf
+        - gpart 3 test/small1.grf
+        - gscat 3 test/small1.grf 'small1-%r of %p.grf'
+      files:
+        - test/cube_8.msh
+        - test/small1.grf
 
   - name: ptscotch
     build:
@@ -195,6 +205,14 @@ outputs:
         - dgord -V
         - dgscat -V
         - dgtst -V
+        - mpiexec -n 2 dgord test/small1.grf
+        - mpiexec -n 2 dgtst test/small1.grf
+        - mpiexec -n 2 dgpart 3 test/small1.grf
+        # scatter/gather
+        - mpiexec -n 2 dgscat test/small1.grf 'small1-%r of %p.grf'
+        - mpiexec -n 2 dggath 'small1-%r of %p.grf'
+      files:
+        - test/small1.grf
     about:
       summary: 'PT-SCOTCH: (Parallel) Static Mapping, Graph, Mesh and Hypergraph Partitioning, and Parallel and Sequential Sparse Matrix Ordering Package'
 
