@@ -73,6 +73,7 @@ outputs:
         - {{ compiler('cxx') }}
         - python 3.12
       commands:
+        - cat $PREFIX/include/scotch.h  # [unix]
 {% for lib in ['scotch', 'scotcherr', 'scotcherrexit', 'esmumps'] %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"                             # [unix]
         - if exist %PREFIX%\\Library\\lib\\{{ lib }}.lib (exit 0) else (exit 1)        # [win]
@@ -122,6 +123,7 @@ outputs:
       source_files:
         - src/check/data/m4x4.grf
       commands:
+        - cat $PREFIX/include/ptscotch.h  # [unix]
 {% for lib in ['ptscotch', 'ptscotcherr', 'ptscotcherrexit', 'ptesmumps'] %}
         - test -f "${PREFIX}/lib/lib{{ lib }}${SHLIB_EXT}"                                 # [unix]
         - if exist %PREFIX%\\Library\\lib\\{{ lib }}.lib (exit 0) else (exit 1)            # [win]
