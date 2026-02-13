@@ -1,6 +1,6 @@
 {% set name = "scotch" %}
-{% set version = "7.0.10" %}
-{% set build = 2 %}
+{% set version = "7.0.11" %}
+{% set build = 0 %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -11,7 +11,7 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://gitlab.inria.fr/scotch/scotch/-/archive/v{{ version }}/scotch-v{{ version }}.tar.gz
-  sha256: 8327725a08cdd4fc7575e291251883b4f93f75b07a54bc58f89f50dcbba7b244
+  sha256: ce1ea6e16ca36ae91426a360f639c8f575fccebc0116fbcb381f164c5e862768
   patches:
     - 0001-put-metis-headers-in-include-scotch.patch
     - 0002-fix-ptesmumps.h.patch
@@ -170,7 +170,7 @@ outputs:
         - gord -V
         - gotst -V
         - gscat -V
-        - ls -la 
+        - ls -la
         - mord test/cube_8.msh
         - gord test/small1.grf
         - gpart 3 test/small1.grf
