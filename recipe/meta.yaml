@@ -1,6 +1,6 @@
 {% set name = "scotch" %}
 {% set version = "7.0.11" %}
-{% set build = 0 %}
+{% set build = 1 %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -55,6 +55,9 @@ outputs:
         - bzip2
         - liblzma-devel
         - {{ mpi }}
+        # this shouldn't be necessary,
+        # but conda-smithy doesn't pick this up as a used variable
+        - impi-devel  # [mpi == 'impi-devel']
         - pthreads-win32  # [win]
       run:
         - pthreads-win32  # [win]
