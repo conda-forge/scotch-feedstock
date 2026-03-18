@@ -25,9 +25,11 @@ libptscotch:
 libscotch:
 - 7.0.11
 mklbuild:
+- mkl
 - nomkl
 mpi:
-- impi-devel
+- nompi
+- nompi
 mpich:
 - '5'
 openmpi:
