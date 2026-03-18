@@ -26,9 +26,7 @@ libscotch:
 - 7.0.11
 mklbuild:
 - mkl
-- nomkl
 mpi:
-- nompi
 - nompi
 mpich:
 - '5'

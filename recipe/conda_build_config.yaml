@@ -2,12 +2,10 @@ mpi:
   - mpich    # [not win]
   - openmpi  # [not win]
   - nompi    # [win]
-  - nompi    # [win]
   - msmpi    # [win]
   - impi-devel  # [win]
 mklbuild:
   - mkl      # [win]
-  - nomkl    # [win]
   - nomkl    # [win]
   - nomkl    # [win]
 intsize:
