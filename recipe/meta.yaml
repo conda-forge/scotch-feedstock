@@ -1,6 +1,6 @@
 {% set name = "scotch" %}
 {% set version = "7.0.11" %}
-{% set build = 3 %}
+{% set build = 2 %}
 {% set major = version.split('.')[0] %}
 {% set minor = version.split('.')[1] %}
 
@@ -54,13 +54,10 @@ outputs:
         - zlib
         - bzip2
         - liblzma-devel
-        - {{ mpi }}  # [mpi != 'nompi']
+        - {{ mpi }}
         # this shouldn't be necessary,
         # but conda-smithy doesn't pick this up as a used variable
         - impi-devel  # [mpi == 'impi-devel']
-        - pthreads-win32  # [win and mklbuild != 'mkl']
-      run:
-        - pthreads-win32  # [win and mklbuild != 'mkl']
 
     test:
       script: test-libscotch.sh  # [unix]
@@ -98,7 +95,6 @@ outputs:
 
   - name: libptscotch
     build:
-      skip: true  # [mpi == 'nompi']
       string: int{{ intsize }}_h{{ PKG_HASH }}_{{ build }}
       script:
         - cmake --install ./build --component=libptscotch
@@ -174,7 +170,7 @@ outputs:
         - gord -V
         - gotst -V
         - gscat -V
-        - ls -la  # [unix]
+        - ls -la
         - mord test/cube_8.msh
         - gord test/small1.grf
         - gpart 3 test/small1.grf
@@ -185,7 +181,6 @@ outputs:
 
   - name: ptscotch
     build:
-      skip: true  # [mpi == 'nompi']
       string: int{{ intsize }}_h{{ PKG_HASH }}_{{ build }}
       script: cmake --install ./build --component=ptscotch
       run_exports:

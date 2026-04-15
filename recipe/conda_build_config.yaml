@@ -1,16 +1,8 @@
 mpi:
   - mpich    # [not win]
   - openmpi  # [not win]
-  - nompi    # [win]
   - msmpi    # [win]
   - impi-devel  # [win]
-mklbuild:
-  - mkl      # [win]
-  - nomkl    # [win]
-  - nomkl    # [win]
 intsize:
   - "32"
   - "64"
-
-zip_keys:
-  - [mpi, mklbuild]  # [win]
