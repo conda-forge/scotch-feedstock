@@ -45,184 +45,135 @@ Current build status
 ====================
 
 
-<table>
+<table><tr>
+    <td>GitHub Actions</td>
+    <td>
+      <a href="https://github.com/conda-forge/scotch-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/scotch-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      </a>
+    </td>
+  </tr>
     
   <tr>
     <td>Azure</td>
     <td>
       <details>
         <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
             <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main">
           </a>
         </summary>
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_intsize32mpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_intsize32mpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_intsize32mpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_intsize32mpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_intsize64mpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_intsize64mpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_intsize64mpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_intsize64mpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>linux_aarch64_intsize32mpimpich</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_intsize32mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_intsize32mpiopenmpi</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_intsize32mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_intsize64mpimpich</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_intsize64mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_intsize64mpiopenmpi</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_intsize64mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_intsize32mpimpich</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_intsize32mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_intsize32mpiopenmpi</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_intsize32mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_intsize64mpimpich</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_intsize64mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_intsize64mpiopenmpi</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_intsize64mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_intsize32mpimpich</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_intsize32mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_intsize32mpiopenmpi</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_intsize32mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_intsize64mpimpich</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_intsize64mpimpich" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64_intsize64mpiopenmpi</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_intsize64mpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_intsize32mpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_intsize32mpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_intsize32mpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_intsize32mpiopenmpi" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_intsize64mpimpich</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_intsize64mpimpich" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_intsize64mpiopenmpi</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_intsize64mpiopenmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_intsize32mpiimpi-devel</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=win&configuration=win%20win_64_intsize32mpiimpi-devel" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_intsize32mpimsmpi</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=win&configuration=win%20win_64_intsize32mpimsmpi" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_intsize64mpiimpi-devel</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=win&configuration=win%20win_64_intsize64mpiimpi-devel" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_intsize64mpimsmpi</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=1889&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/scotch-feedstock?branchName=main&jobName=win&configuration=win%20win_64_intsize64mpimsmpi" alt="variant">
                 </a>
               </td>
