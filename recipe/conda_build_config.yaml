@@ -6,3 +6,5 @@ mpi:
 intsize:
   - "32"
   - "64"
+impi_devel:
+  - 2021.17.2  # [win]

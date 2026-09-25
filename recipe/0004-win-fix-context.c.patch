@@ -7,28 +7,36 @@ fix context offset on Windows
 
 origin: conda-forge PR 73
 https://github.com/conda-forge/scotch-feedstock/pull/73
+
+The value offsets must be the offsets of vinttab and vdbltab inside
+contextvaluesdat, i.e. 0 and sizeof (vinttab). The first version of this
+patch passed sizeof (vinttab) and 2 * sizeof (vinttab), which shifts every
+value access by one array: with 64-bit INT the two integer values were then
+written past the end of the (24-byte) heap copy of the values array,
+corrupting the heap (0xc0000374 in contextExit after SCOTCH_graphOrder* /
+SCOTCH_dgraphPart).
 ---
- src/libscotch/context.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ src/libscotch/context.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/src/libscotch/context.c b/src/libscotch/context.c
 index acda708..e73bb10 100644
 --- a/src/libscotch/context.c
 +++ b/src/libscotch/context.c
-@@ -89,10 +89,11 @@ contextOptionsInit (
+@@ -89,10 +89,12 @@ contextOptionsInit (
  Context * const             contptr)
  {
    int                 o;
-+  size_t offset = sizeof(contextvaluesdat.vinttab);
++  const size_t        ointval = (size_t) ((char *) contextvaluesdat.vinttab - (char *) &contextvaluesdat);
++  const size_t        odblval = (size_t) ((char *) contextvaluesdat.vdbltab - (char *) &contextvaluesdat);
  
    o = contextValuesInit (contptr, &contextvaluesdat, sizeof (contextvaluesdat),
 -                         CONTEXTOPTIONNUMNBR, (byte *) &contextvaluesdat.vinttab - (byte *) &contextvaluesdat,
 -                         CONTEXTOPTIONDBLNBR, (byte *) &contextvaluesdat.vdbltab - (byte *) &contextvaluesdat);
-+                         CONTEXTOPTIONNUMNBR, offset,
-+                         CONTEXTOPTIONDBLNBR, offset + sizeof (contextvaluesdat.vinttab));
++                         CONTEXTOPTIONNUMNBR, ointval,
++                         CONTEXTOPTIONDBLNBR, odblval);
  
    if (o == 0) {                                   /* If values array allocated, update it with existing environment variables */
      INT                 deteval;
 -- 
 2.49.0
-
