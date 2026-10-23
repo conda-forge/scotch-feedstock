@@ -34,6 +34,9 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
       linux-ppc64le)
         mutex_size=40
         ;;
+      linux-riscv64)
+        mutex_size=40
+        ;;
       osx-arm64)
         mutex_size=64
         ;;
